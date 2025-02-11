@@ -1,16 +1,18 @@
-@if(form) {
-@for (stage of eApp.stages; track $index) {
-<section>
-    <h3>{{stage.title}}</h3>
-    @for (question of stage.dataItems; track $index) {
-    <h4>{{question.displayLabel}}</h4>
-    @if(question.dataOptions) {
-    @for (item of question.dataOptions; track $index) {
-    <p>{{item.label}}</p>
-    }
-    }
-    }
+<section class="grid w-full h-full grid-cols-4">
+    <section class="flex flex-col col-span-1 gap-20">
+        <div>
+            <p class="text-3xl font-display">This is the heading for the entire workflow</p>
+            <p class="text-gray-300">This is a tagline for the entire workflow. Something short and sweet.</p>
+        </div>
+        <ul>
+            @for (stage of eApp.stages | orderBy: 'title'; track $index) {
+            <li class="flex items-center p-10">
+                <p>{{stage.title}}</p>
+            </li>
+            }
+        </ul>
+    </section>
+    <section class="col-span-3 bg-gray-800">
+        <app-stage></app-stage>
+    </section>
 </section>
-}
-
-}
