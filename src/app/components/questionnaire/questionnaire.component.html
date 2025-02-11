@@ -1,0 +1,16 @@
+@if(form) {
+@for (stage of eApp.stages; track $index) {
+<section>
+    <h3>{{stage.title}}</h3>
+    @for (question of stage.dataItems; track $index) {
+    <h4>{{question.displayLabel}}</h4>
+    @if(question.dataOptions) {
+    @for (item of question.dataOptions; track $index) {
+    <p>{{item.label}}</p>
+    }
+    }
+    }
+</section>
+}
+
+}

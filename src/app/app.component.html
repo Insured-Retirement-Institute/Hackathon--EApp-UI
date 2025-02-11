@@ -1,0 +1,15 @@
+<section class="px-20 py-10 bg-zinc-900">
+  <ul class="flex items-center gap-10">
+    @for (item of nav; track $index) {
+    @if (item?.title) {
+    <li class="p-10">
+      <a [routerLink]="[item.path]" routerLinkActive="text-blue-500" class="text-base tracking-wider font-display">{{item.title}}</a>
+    </li>
+    }
+    }
+  </ul>
+</section>
+<section class="p-20">
+  <router-outlet></router-outlet>
+
+</section>
