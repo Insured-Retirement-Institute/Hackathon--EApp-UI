@@ -6,8 +6,12 @@
         </div>
         <ul>
             @for (stage of apiEApp.stages | orderBy: 'order'; track $index) {
-            <li class="flex items-center gap-20 p-10">
-                <span class="w-24 h-24 rounded-full bg-blue-950"></span>
+            <li class="flex items-center gap-20 p-10" [ngClass]="{'text-blue-400 font-bold': stage.order === currentStageIndex + 1}">
+                <span class="flex items-center justify-center w-24 h-24 rounded-full bg-blue-950">
+                  @if(stage.order === currentStageIndex + 1) {
+                    <span class="w-10 h-10 bg-blue-500 rounded-full" ></span>
+                  }
+                </span>
                 <p class="">{{stage.title}}</p>
             </li>
             }
@@ -16,8 +20,8 @@
     <section class="flex flex-col col-span-3 overflow-hidden bg-zinc-800">
         <app-stage [stage]="activeStage" [form]="activeForm" class="flex-grow overflow-y-auto"></app-stage>
         <div class="flex items-center justify-end gap-10 p-20 border-t border-gray-700 border-solid">
-            <button mat-stroked-button type="button" class="" (click)="goTo()">Prev</button>
-            <button mat-flat-button type="button" class="" (click)="goTo()">Next</button>
+            <button mat-stroked-button type="button" class="" (click)="goBack()">Prev</button>
+            <button mat-flat-button type="button" class="" (click)="goNext()">Next</button>
             <button mat-flat-button type="submit" class="" (click)="submit()">Submit</button>
         </div>
     </section>

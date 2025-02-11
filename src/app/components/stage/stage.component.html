@@ -2,9 +2,9 @@
 <section class="flex flex-col gap-40 p-30">
     <h1 class="text-xl font-display">{{stage.title}}</h1>
     <form [formGroup]="form">
-        <div formArrayName="dataItems">
+        <div formArrayName="dataItems" class="flex flex-col gap-30">
             @for (item of stage.dataItems; track $index) {
-            <div [formGroupName]="$index">
+            <div [formGroupName]="$index" class="flex flex-col gap-20">
                 <p>{{item.displayLabel}}</p>
                 @switch (item.dataType) {
                 @case(dataTypeEnum.radio) {
@@ -14,12 +14,32 @@
                     }
                 </mat-radio-group>
                 }
+
                 @case(dataTypeEnum.select) {
                 <mat-select placeholder="Select an option" formControlName="selectedValue">
                     @for (opt of item.dataOptions; track $index) {
                     <mat-option [value]="opt.value">{{opt.label}}</mat-option>
                     }
                 </mat-select>
+                }
+
+                @case(dataTypeEnum.shortText) {
+                <input matInput type="text" formControlName="selectedValue" placeholder="Please answer">
+                }
+
+                @case(dataTypeEnum.longText) {
+                <textarea matInput type="text" formControlName="selectedValue" placeholder="Please answer"></textarea>
+                }
+
+                @case(dataTypeEnum.date) {
+                    <input name="myDate" matInput [matDatepicker]="picker"
+                    class="form-control" placeholder="Date"  
+                    formControlName="selectedValue">
+                    <mat-datepicker #picker></mat-datepicker>
+                }
+
+                @default {
+                <input matInput type="text" formControlName="selectedValue" placeholder="Please answer">
                 }
                 }
             </div>

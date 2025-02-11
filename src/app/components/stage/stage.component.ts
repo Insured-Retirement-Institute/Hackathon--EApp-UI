@@ -5,6 +5,8 @@ import {MatRadioGroup, MatRadioModule} from '@angular/material/radio';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 @Component({
   selector: 'app-stage',
   imports: [
@@ -14,6 +16,7 @@ import { CommonModule } from '@angular/common';
     MatSelectModule,
     MatOptionModule,
     CommonModule,
+    MatDatepickerModule
   ],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss'

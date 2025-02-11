@@ -5,6 +5,7 @@ import { StageComponent } from "../stage/stage.component";
 import { OrderModule } from 'ngx-order-pipe';
 import { MatButton } from '@angular/material/button';
 import { RecommendationApiService } from '../../services/recommendation-api';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-questionnaire',
@@ -12,13 +13,14 @@ import { RecommendationApiService } from '../../services/recommendation-api';
     ReactiveFormsModule,
     MatButton,
     StageComponent,
-    OrderModule
+    OrderModule,
+    CommonModule,
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss'
 })
 export class QuestionnaireComponent implements OnInit {
-  constructor(private recommendationApi:RecommendationApiService) { }
+
   fb = inject(FormBuilder)
   apiEApp = ApiEAppV2;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({
@@ -63,6 +65,7 @@ export class QuestionnaireComponent implements OnInit {
 
       this.stages.push(stageGroup);
     });
+    this.activeStage = this.apiEApp.stages.at(0);
     this.activeForm = this.getFirstForm();
   }
 
@@ -80,7 +83,6 @@ export class QuestionnaireComponent implements OnInit {
 
   getNextStageObj(): Stage | undefined {
     if (this.currentStageIndex < this.stages.length - 1) {
-      this.currentStageIndex++;
       return this.apiEApp.stages.at(this.currentStageIndex);
     }
     return undefined;
@@ -88,7 +90,7 @@ export class QuestionnaireComponent implements OnInit {
 
   getPrevStageForm(): FormGroup<StageForm> | undefined {
     if(this.currentStageIndex === 0) return;
-    if (this.currentStageIndex === this.stages.length - 1) {
+    if (this.currentStageIndex <= this.stages.length - 1) {
       this.currentStageIndex--;
       return this.stages.at(this.currentStageIndex);
     }
@@ -97,16 +99,21 @@ export class QuestionnaireComponent implements OnInit {
 
   getPrevStageObj(): Stage | undefined {
     if(this.currentStageIndex === 0) return;
-    if (this.currentStageIndex === this.stages.length - 1) {
-      this.currentStageIndex--;
+    if (this.currentStageIndex <= this.stages.length - 1) {
       return this.apiEApp.stages.at(this.currentStageIndex);
     }
     return undefined;
   }
 
-  goTo(): void {
+  goNext(): void {
     this.activeForm = this.getNextStageForm();
     this.activeStage = this.getNextStageObj();
+  }
+
+  
+  goBack(): void {
+    this.activeForm = this.getPrevStageForm();
+    this.activeStage = this.getPrevStageObj();
   }
 
   submit(): void {
@@ -817,7 +824,7 @@ export const ApiEAppV2: ApiEAppModel = {
           ]
       },
       {
-          "order": 6,
+          "order": 7,
           "title": "Personal Finances",
           "dataItems": [
               {
@@ -877,7 +884,7 @@ export const ApiEAppV2: ApiEAppModel = {
           ]
       },
       {
-          "order": 7,
+          "order": 8,
           "title": "Suitability",
           "dataItems": [
               {
@@ -955,7 +962,7 @@ export const ApiEAppV2: ApiEAppModel = {
           ]
       },
       {
-          "order": 8,
+          "order": 9,
           "title": "Funding",
           "dataItems": [
               {
@@ -1021,7 +1028,7 @@ export const ApiEAppV2: ApiEAppModel = {
           ]
       },
       {
-        "order": 9,
+        "order": 10,
         "title": "Allocation",
         "dataItems": [
             {
