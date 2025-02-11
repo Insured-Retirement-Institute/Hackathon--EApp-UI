@@ -4,6 +4,7 @@ import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular
 import {MatRadioGroup, MatRadioModule} from '@angular/material/radio';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-stage',
   imports: [
@@ -11,7 +12,8 @@ import { MatOptionModule } from '@angular/material/core';
     MatRadioModule,
     MatRadioGroup,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    CommonModule,
   ],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss'
@@ -20,10 +22,6 @@ export class StageComponent {
   @Input() stage?: Stage;
   @Input() form?: FormGroup<StageForm> | null;
   dataTypeEnum = DataTypeEnum;
-
-  get dataItems(): FormArray<FormGroup<DataItemForm>> {
-    return this.form?.get('dataItems') as FormArray<FormGroup<DataItemForm>>;
-  }
 
   // get options(): FormArray<FormGroup<DataOptionForm>> {
   //   return this.dataItems.get('dataOptions') as FormArray<FormGroup<DataOptionForm>>;

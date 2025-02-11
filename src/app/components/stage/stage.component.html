@@ -4,23 +4,25 @@
     <form [formGroup]="form">
         <div formArrayName="dataItems">
             @for (item of stage.dataItems; track $index) {
-            <p>{{item.displayLabel}}</p>
-            @switch (item.dataType) {
-            @case(dataTypeEnum.radio) {
-            <mat-radio-group>
-                @for (opt of item.dataOptions; track $index) {
-                <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+            <div [formGroupName]="$index">
+                <p>{{item.displayLabel}}</p>
+                @switch (item.dataType) {
+                @case(dataTypeEnum.radio) {
+                <mat-radio-group formControlName="selectedValue">
+                    @for (opt of item.dataOptions; track $index) {
+                    <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                    }
+                </mat-radio-group>
                 }
-            </mat-radio-group>
-            }
-            @case(dataTypeEnum.select) {
-            <mat-select placeholder="Select an option">
-                @for (opt of item.dataOptions; track $index) {
-                <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                @case(dataTypeEnum.select) {
+                <mat-select placeholder="Select an option" formControlName="selectedValue">
+                    @for (opt of item.dataOptions; track $index) {
+                    <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                    }
+                </mat-select>
                 }
-            </mat-select>
-            }
-            }
+                }
+            </div>
             }
         </div>
 
