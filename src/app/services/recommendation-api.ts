@@ -25,3 +25,31 @@ export class RecommendationApiService {
 export interface RecommendationRequestModel {
     prompt: 'I am a conservative investor looking to retire in the next 5 years. I do no like to invest in technology companies and want to support comapnies that focus on social good.'
 }
+
+interface Holding {
+    symbol: string;
+    name: string;
+    weight: number;
+    category: string;
+  }
+  
+  interface SectorAllocation {
+    weight: number;
+    holdings: Holding[];
+  }
+  
+  interface PortfolioAllocation {
+    primary_affinity_sector: SectorAllocation;
+    growth_sectors: SectorAllocation;
+    stable_income: SectorAllocation;
+    international_exposure: SectorAllocation;
+    fixed_income: SectorAllocation;
+  }
+
+  
+  interface PortfolioModel {
+    portfolio_allocation: PortfolioAllocation;
+    risk_profile: string;
+    esg_focus: string;
+  }
+  

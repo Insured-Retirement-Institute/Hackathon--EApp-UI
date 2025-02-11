@@ -25,32 +25,32 @@ export class HomeComponent implements OnInit {
   ) { }
   ngOnInit(): void {
     console.log('Home component initialized');
-    // this.recommendationsService.getRecommendations('jj').subscribe((response) => {
-    //   console.log(response);
-    // });
+    this.recommendationsService.getRecommendations('jj').subscribe((response) => {
+      console.log(response);
+    });
 
-    // this.templateApiService.getTemplates().subscribe((response) => {
-    //   console.log(response);
-    //   this.templateApiService.getTemplate(response[1].id).subscribe((response) => {
-    //     console.log(response);
-    //   });
-    // });
+    this.templateApiService.getTemplates().subscribe((response) => {
+      console.log(response);
+      this.templateApiService.getTemplate(response[1].id).subscribe((response) => {
+        console.log(response);
+      });
+    });
 
-    // var fakePricing:PricingRequestModel = {
-    //   requestorName: "Jake Galligan",
-    //   allocations: [{
-    //     assetClass: "Stock",
-    //     assetId: "MSFT",
-    //     allocationPercentage: 70
-    //   },
-    //   {
-    //     assetClass: "Stock",
-    //     assetId: "FIG",
-    //     allocationPercentage: 30
-    //   }]
-    // } 
-    // this.pricingService.getPricing(fakePricing).subscribe((response) => {
-    //   console.log(response);
-    // });
+    var fakePricing:PricingRequestModel = {
+      requestorName: "Jake Galligan",
+      allocations: [{
+        assetClass: "Stock",
+        assetId: "MSFT",
+        allocationPercentage: 70
+      },
+      {
+        assetClass: "Stock",
+        assetId: "FIG",
+        allocationPercentage: 30
+      }]
+    } 
+    this.pricingService.getPricing(fakePricing).subscribe((response) => {
+      console.log(response);
+    });
   }
 }
