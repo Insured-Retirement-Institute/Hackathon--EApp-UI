@@ -6,6 +6,7 @@ import { OrderModule } from 'ngx-order-pipe';
 import { MatButton } from '@angular/material/button';
 import { RecommendationApiService } from '../../services/recommendation-api';
 import { CommonModule } from '@angular/common';
+import { SubmissionComponent } from '../submission/submission.component';
 
 @Component({
   selector: 'app-questionnaire',
@@ -15,6 +16,7 @@ import { CommonModule } from '@angular/common';
     StageComponent,
     OrderModule,
     CommonModule,
+    SubmissionComponent
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss'
@@ -29,6 +31,7 @@ export class QuestionnaireComponent implements OnInit {
   currentStageIndex = 0;
   activeStage: Stage | undefined = this.apiEApp.stages[0];
   activeForm: FormGroup<StageForm> | undefined = undefined;
+  showAll = false;
 
   get stages(): FormArray<FormGroup<StageForm>> {
     return this.mainForm.get('stages') as FormArray<FormGroup<StageForm>>;
@@ -36,6 +39,10 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm();
+  }
+
+  showAllocation() {
+    this.showAll = !this.showAll;
   }
 
   initializeForm(): void {
