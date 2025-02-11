@@ -31,13 +31,6 @@
                 <textarea matInput type="text" formControlName="selectedValue" placeholder="Please answer"></textarea>
                 }
 
-                @case(dataTypeEnum.date) {
-                    <input name="myDate" matInput [matDatepicker]="picker"
-                    class="form-control" placeholder="Date"  
-                    formControlName="selectedValue">
-                    <mat-datepicker #picker></mat-datepicker>
-                }
-
                 @default {
                 <input matInput type="text" formControlName="selectedValue" placeholder="Please answer">
                 }
