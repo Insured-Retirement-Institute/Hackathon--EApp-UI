@@ -8,7 +8,7 @@
                 <p>{{item.displayLabel}}</p>
                 @switch (item.dataType) {
                 @case(dataTypeEnum.radio) {
-                <mat-radio-group formControlName="selectedValue">
+                <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20">
                     @for (opt of item.dataOptions; track $index) {
                     <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
                     }

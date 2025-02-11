@@ -6,7 +6,7 @@
         </div>
         <ul>
             @for (stage of apiEApp.stages | orderBy: 'order'; track $index) {
-            <li class="flex items-center gap-20 p-10" [ngClass]="{'text-blue-400 font-bold': stage.order === currentStageIndex + 1}">
+            <li class="flex items-center gap-20 p-10 cursor-pointer" [ngClass]="{'text-blue-400 font-bold': stage.order === currentStageIndex + 1}" (click)="goToStep(stage.order - 1)">
                 <span class="flex items-center justify-center w-24 h-24 rounded-full bg-blue-950">
                   @if(stage.order === currentStageIndex + 1) {
                     <span class="w-10 h-10 bg-blue-500 rounded-full" ></span>

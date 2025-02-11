@@ -82,14 +82,16 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getNextStageObj(): Stage | undefined {
-    if (this.currentStageIndex < this.stages.length - 1) {
+    if (this.currentStageIndex <= this.stages.length - 1) {
       return this.apiEApp.stages.at(this.currentStageIndex);
     }
     return undefined;
   }
 
   getPrevStageForm(): FormGroup<StageForm> | undefined {
-    if(this.currentStageIndex === 0) return;
+    if(this.currentStageIndex === 0) {
+      return this.stages.at(0);
+    };
     if (this.currentStageIndex <= this.stages.length - 1) {
       this.currentStageIndex--;
       return this.stages.at(this.currentStageIndex);
@@ -98,7 +100,9 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   getPrevStageObj(): Stage | undefined {
-    if(this.currentStageIndex === 0) return;
+    if(this.currentStageIndex === 0) {
+      return this.apiEApp.stages.at(0);
+    };
     if (this.currentStageIndex <= this.stages.length - 1) {
       return this.apiEApp.stages.at(this.currentStageIndex);
     }
@@ -114,6 +118,12 @@ export class QuestionnaireComponent implements OnInit {
   goBack(): void {
     this.activeForm = this.getPrevStageForm();
     this.activeStage = this.getPrevStageObj();
+  }
+
+  goToStep(stepIndex: number) {
+    this.currentStageIndex = stepIndex;
+    this.activeForm = this.stages.at(this.currentStageIndex);
+    this.activeStage = this.apiEApp.stages.at(this.currentStageIndex);
   }
 
   submit(): void {
