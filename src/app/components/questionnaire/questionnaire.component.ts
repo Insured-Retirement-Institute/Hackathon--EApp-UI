@@ -4,6 +4,7 @@ import { MatLabel, MatSelectModule } from '@angular/material/select';
 import { StageComponent } from "../stage/stage.component";
 import { OrderModule } from 'ngx-order-pipe';
 import { MatButton } from '@angular/material/button';
+import { RecommendationApiService } from '../../services/recommendation-api';
 
 @Component({
   selector: 'app-questionnaire',
@@ -17,7 +18,7 @@ import { MatButton } from '@angular/material/button';
   styleUrl: './questionnaire.component.scss'
 })
 export class QuestionnaireComponent implements OnInit {
-
+  constructor(private recommendationApi:RecommendationApiService) { }
   fb = inject(FormBuilder)
   apiEApp = ApiEAppV2;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({
@@ -96,7 +97,6 @@ export class QuestionnaireComponent implements OnInit {
         })
       }
     }));
-    alert(JSON.stringify(postModel.dataItems));
   }
 }
 
@@ -994,6 +994,30 @@ export const ApiEAppV2: ApiEAppModel = {
                   "dataType": DataTypeEnum.shortText
               }
           ]
-      }
+      },
+      {
+        "order": 9,
+        "title": "Allocation",
+        "dataItems": [
+            {
+                "dataItemId": "",
+                "order": 1,
+                "displayLabel": "What are your core values? What principles do you abide by?",
+                "dataType": DataTypeEnum.longText
+            },
+            {
+                "dataItemId": "",
+                "order": 1,
+                "displayLabel": "Are there any particular industries that you are interested in? (Ex. Technology, Aviation, Energy, etc.)",
+                "dataType": DataTypeEnum.longText
+            },
+            {
+                "dataItemId": "",
+                "order": 1,
+                "displayLabel": "Would you prefer low-risk with steady returns, or are you okay with higher risk for potentially higher returns?",
+                "dataType": DataTypeEnum.longText
+            }
+        ]
+    }
   ]
 }
