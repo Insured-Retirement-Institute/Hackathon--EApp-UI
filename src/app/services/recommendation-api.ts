@@ -104,24 +104,24 @@ export class RecommendationApiService {
       };
     constructor(private http: HttpClient) {}
 
-    getRecommendations(prompt: string): Observable<any> {
+    getRecommendations(prompt: string): Observable<PortfolioModel> {
+        // TODO maybe direct to anthropic
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         const body = { messages: [{role: 'user', content:'convervative investor'} ]};
 
-        return this.http.post<any>(this.apiUrl, body, { headers: headers });
+        return this.http.post<PortfolioModel>(this.apiUrl, body, { headers: headers });
     }
 }
 
-interface Holding {
+interface Security {
     symbol: string;
     name: string;
-    weight: number;
-    category: string;
+    allocation: number;
   }
   
   interface SectorAllocation {
     weight: number;
-    holdings: Holding[];
+    securities: Security[];
   }
   
   interface PortfolioAllocation {
@@ -133,8 +133,8 @@ interface Holding {
   }
 
   
-  interface PortfolioModel {
-    portfolio_allocation: PortfolioAllocation;
+  export interface PortfolioModel {
+    portfolio_allocation: Record<string, SectorAllocation>;
     risk_profile: string;
     esg_focus: string;
   }
