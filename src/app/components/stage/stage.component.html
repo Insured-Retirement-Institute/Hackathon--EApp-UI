@@ -1,27 +1,29 @@
 @if(stage && form) {
-<section>
+<section class="flex flex-col gap-40 p-30">
     <h1 class="text-xl font-display">{{stage.title}}</h1>
     <form [formGroup]="form">
-        <div formArrayName="dataItems"></div>
-        @for (item of stage.dataItems; track $index) {
-        <p>{{item.displayLabel}}</p>
-        @switch (item.dataType) {
-        @case(dataTypeEnum.radio) {
-        <mat-radio-group>
-            @for (opt of item.dataOptions; track $index) {
-            <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+        <div formArrayName="dataItems">
+            @for (item of stage.dataItems; track $index) {
+            <p>{{item.displayLabel}}</p>
+            @switch (item.dataType) {
+            @case(dataTypeEnum.radio) {
+            <mat-radio-group>
+                @for (opt of item.dataOptions; track $index) {
+                <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                }
+            </mat-radio-group>
             }
-        </mat-radio-group>
-        }
-        @case(dataTypeEnum.select) {
-        <mat-select placeholder="Select an option">
-            @for (opt of item.dataOptions; track $index) {
-            <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+            @case(dataTypeEnum.select) {
+            <mat-select placeholder="Select an option">
+                @for (opt of item.dataOptions; track $index) {
+                <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                }
+            </mat-select>
             }
-        </mat-select>
-        }
-        }
-        }
+            }
+            }
+        </div>
+
     </form>
 </section>
 }

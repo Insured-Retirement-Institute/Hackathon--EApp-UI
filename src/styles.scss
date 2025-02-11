@@ -43,13 +43,12 @@ html {
     );
 }
 :root {
-    --mat-sys-body-small: @apply text-sm;
-    --mat-sys-body-medium: @apply text-base;
-    --mat-sys-body-large: @apply text-large;
+    --mat-sys-body-small-size: @apply text-sm;
+    --mat-sys-body-medium-size: @apply text-base;
+    --mat-sys-body-large-size: @apply text-large;
 }
 @layer components {
     :root {
-
         @include mat.button-overrides(
             (
                 filled-label-text-size: var(--mat-sys-body-medium),
