@@ -1,4 +1,4 @@
-<section class="px-20 py-10 bg-zinc-900">
+<section class="flex-none px-20 py-10 overflow-hidden bg-zinc-900">
   <ul class="flex items-center gap-10">
     @for (item of nav; track $index) {
     @if (item?.title) {
@@ -9,7 +9,7 @@
     }
   </ul>
 </section>
-<section class="w-full h-full">
+<section class="flex-grow w-full">
   <router-outlet></router-outlet>
 
 </section>

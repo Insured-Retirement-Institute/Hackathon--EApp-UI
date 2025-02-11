@@ -1,11 +1,31 @@
-import { Component } from '@angular/core';
-
+import { Component, Input } from '@angular/core';
+import { DataItemForm, DataOptionForm, DataTypeEnum, Stage, StageForm } from '../questionnaire/questionnaire.component';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {MatRadioGroup, MatRadioModule} from '@angular/material/radio';
+import { MatSelect, MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 @Component({
   selector: 'app-stage',
-  imports: [],
+  imports: [
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatRadioGroup,
+    MatSelectModule,
+    MatOptionModule
+  ],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss'
 })
 export class StageComponent {
+  @Input() stage?: Stage;
+  @Input() form?: FormGroup<StageForm> | null;
+  dataTypeEnum = DataTypeEnum;
 
+  get dataItems(): FormArray<FormGroup<DataItemForm>> {
+    return this.form?.get('dataItems') as FormArray<FormGroup<DataItemForm>>;
+  }
+
+  // get options(): FormArray<FormGroup<DataOptionForm>> {
+  //   return this.dataItems.get('dataOptions') as FormArray<FormGroup<DataOptionForm>>;
+  // }
 }
