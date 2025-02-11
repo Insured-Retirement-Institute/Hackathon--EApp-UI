@@ -16,6 +16,7 @@
     <section class="flex flex-col col-span-3 overflow-hidden bg-zinc-800">
         <app-stage [stage]="activeStage" [form]="activeForm" class="flex-grow overflow-y-auto"></app-stage>
         <div class="flex items-center justify-end gap-10 p-20 border-t border-gray-700 border-solid">
+            <button mat-stroked-button type="button" class="" (click)="goTo()">Prev</button>
             <button mat-flat-button type="button" class="" (click)="goTo()">Next</button>
             <button mat-flat-button type="submit" class="" (click)="submit()">Submit</button>
         </div>

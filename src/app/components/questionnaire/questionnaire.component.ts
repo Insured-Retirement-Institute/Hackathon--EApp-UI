@@ -24,8 +24,8 @@ export class QuestionnaireComponent implements OnInit {
     stages: this.fb.array<FormGroup<StageForm>>([])
   });
   currentStageIndex = 0;
-  activeStage = this.apiEApp.stages[0];
-  activeForm: FormGroup<StageForm> | null = null;
+  activeStage: Stage | undefined = this.apiEApp.stages[0];
+  activeForm: FormGroup<StageForm> | undefined = undefined;
 
   get stages(): FormArray<FormGroup<StageForm>> {
     return this.mainForm.get('stages') as FormArray<FormGroup<StageForm>>;
@@ -62,25 +62,50 @@ export class QuestionnaireComponent implements OnInit {
 
       this.stages.push(stageGroup);
     });
-    this.activeForm = this.getFirstStage();
+    this.activeForm = this.getFirstForm();
   }
 
-  getFirstStage(): FormGroup<StageForm> | null {
-    return this.stages.length > 0 ? this.stages.at(0) : null;
+  getFirstForm(): FormGroup<StageForm> | undefined {
+    return this.stages.length > 0 ? this.stages.at(0) : undefined;
   }
 
-  getNextStage(): FormGroup<StageForm> | null {
+  getNextStageForm(): FormGroup<StageForm> | undefined {
     if (this.currentStageIndex < this.stages.length - 1) {
       this.currentStageIndex++;
       return this.stages.at(this.currentStageIndex);
     }
-    return null;
+    return undefined;
   }
 
-  goTo(stageOrder?: number): void {
-    let stage: Stage | undefined;
-    const order = this.activeStage.order;
-    this.activeForm = this.getNextStage();
+  getNextStageObj(): Stage | undefined {
+    if (this.currentStageIndex < this.stages.length - 1) {
+      this.currentStageIndex++;
+      return this.apiEApp.stages.at(this.currentStageIndex);
+    }
+    return undefined;
+  }
+
+  getPrevStageForm(): FormGroup<StageForm> | undefined {
+    if(this.currentStageIndex === 0) return;
+    if (this.currentStageIndex === this.stages.length - 1) {
+      this.currentStageIndex--;
+      return this.stages.at(this.currentStageIndex);
+    }
+    return undefined;
+  }
+
+  getPrevStageObj(): Stage | undefined {
+    if(this.currentStageIndex === 0) return;
+    if (this.currentStageIndex === this.stages.length - 1) {
+      this.currentStageIndex--;
+      return this.apiEApp.stages.at(this.currentStageIndex);
+    }
+    return undefined;
+  }
+
+  goTo(): void {
+    this.activeForm = this.getNextStageForm();
+    this.activeStage = this.getNextStageObj();
   }
 
   submit(): void {

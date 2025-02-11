@@ -1,117 +1,30 @@
-<section class="flex flex-col p-40 gap-30">
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Basic</div>
-      <div class="flex items-center gap-10">
-        <button mat-button>Basic</button>
-        <button mat-button disabled>Disabled</button>
-        <a mat-button href="https://www.google.com/" target="_blank">Link</a>
-      </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Raised</div>
-      <div class="flex items-center gap-10">
-        <button mat-raised-button>Basic</button>
-        <button mat-raised-button disabled>Disabled</button>
-        <a mat-raised-button href="https://www.google.com/" target="_blank">Link</a>
-      </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Stroked</div>
-      <div class="flex items-center gap-10">
-        <button mat-stroked-button>Basic</button>
-        <button mat-stroked-button disabled>Disabled</button>
-        <a mat-stroked-button href="https://www.google.com/" target="_blank">Link</a>
-      </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Flat</div>
-      <div class="flex items-center gap-10">
-        <button mat-flat-button>Basic</button>
-        <button mat-flat-button disabled>Disabled</button>
-        <a mat-flat-button href="https://www.google.com/" target="_blank">Link</a>
-      </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Icon</div>
-      <div class="flex items-center gap-10">
-        <div class="flex items-center gap-10">
-          <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <button mat-icon-button disabled aria-label="Example icon button with a open in new tab icon">
-            <mat-icon>open_in_new</mat-icon>
-          </button>
-        </div>
-      </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">FAB</div>
-      <div class="flex items-center gap-10">
-        <div class="flex items-center gap-10">
-          <div class="example-button-container">
-            <button mat-fab aria-label="Example icon button with a delete icon">
-              <mat-icon>delete</mat-icon>
-            </button>
+<div class="flex flex-col items-center justify-center min-h-screen px-6">
+  <main class="flex flex-col gap-20 mt-20 text-center">
+      <h2 class="text-3xl font-display">Protect Your Retirement</h2>
+      <p class="mt-4 text-lg text-gray-300">Take advantage of asset protection and lifetime income</p>
+      <button class="px-6 py-3 mt-6 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600" [routerLink]="['/questionnaire']" routerLinkActive="router-link-active" >Get Started</button>
+  </main>
+  <section id="features" class="mt-16 max-w-640">
+      <h3 class="text-3xl font-bold text-center">Features</h3>
+      <div class="grid grid-cols-1 gap-20 mt-20 md:grid-cols-3">
+          <div class="p-6 text-center bg-gray-800 rounded-lg">
+              <span class="mb-2 text-4xl material-icons">shield</span>
+              <h4 class="text-xl font-semibold">Protection</h4>
+              <p class="text-gray-400">Avoid asset loss.</p>
           </div>
-          <div class="example-button-container">
-            <button mat-fab disabled aria-label="Example icon button with a heart icon">
-  
-            </button>
+          <div class="p-6 text-center bg-gray-800 rounded-lg">
+              <span class="mb-2 text-4xl material-icons">show_chart</span>
+              <h4 class="text-xl font-semibold">Lifetime Income</h4>
+              <p class="text-gray-400">Guaranteed income for life.</p>
           </div>
-        </div>
+          <div class="p-6 text-center bg-gray-800 rounded-lg">
+              <span class="mb-2 text-4xl material-icons">palette</span>
+              <h4 class="text-xl font-semibold">Personalized</h4>
+              <p class="text-gray-400">Fully customized for you.</p>
+          </div>
       </div>
-    </section>
-  
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Mini FAB</div>
-      <div class="flex items-center gap-10">
-        <div class="flex items-center gap-10">
-          <div class="example-button-container">
-            <button mat-mini-fab aria-label="Example icon button with a menu icon">
-              <mat-icon>menu</mat-icon>
-            </button>
-          </div>
-          <div class="example-button-container">
-            <button mat-mini-fab disabled aria-label="Example icon button with a home icon">
-              <mat-icon>home</mat-icon>
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-    <section class="flex flex-col gap-20">
-      <div class="text-sm">Extended Fab</div>
-      <div class="flex items-center gap-10">
-        <div class="flex items-center gap-10">
-          <div class="example-button-container">
-            <button mat-fab extended>
-              <mat-icon>favorite</mat-icon>
-              Basic
-            </button>
-          </div>
-          <div class="example-button-container">
-            <button mat-fab extended disabled>
-              <mat-icon>favorite</mat-icon>
-              Disabled
-            </button>
-          </div>
-          <div class="example-button-container">
-            <a mat-fab extended routerLink=".">
-              <mat-icon>favorite</mat-icon>
-              Link
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  
-    <mat-slider>
-      <input matSliderThumb>
-    </mat-slider>
-  
   </section>
+  <footer id="contact" class="w-full py-10 mt-40 text-center border-t border-gray-700">
+      <p class="text-gray-400">&copy; 2025 IRI Hackathon. All rights reserved.</p>
+  </footer>
+</div>
