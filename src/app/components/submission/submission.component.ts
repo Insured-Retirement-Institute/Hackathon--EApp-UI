@@ -4,7 +4,7 @@ import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-submission',
-  imports: [JsonPipe],
+  imports: [],
   templateUrl: './submission.component.html',
   styleUrl: './submission.component.scss'
 })
