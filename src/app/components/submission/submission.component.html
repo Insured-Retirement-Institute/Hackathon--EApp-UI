@@ -8,8 +8,9 @@
             <p class="mt-20 text-sm">{{recommendedAllocation?.reason ?? "Here is your custom allocation based on your investor portfolio, specific goals and foundational values."}}</p>
         </div>
         <span class="h-px mx-20 bg-gray-700"></span>
+     @if(!loading && recommendedAllocation?.allocations?.length) {
         <ul class="flex flex-col gap-10 p-20 overflow-auto" [@fadeIn]="recommendedAllocation?.allocations?.length">
-            @for (item of recommendedAllocation?.allocations; track $index) {
+            @for (item of recommendedAllocation?.allocations | groupBy: 'assetClass' ; track $index) {
             <li
                 class="flex gap-10 px-20 py-10 transition duration-150 rounded-md bg-zinc-800 opacity-80 hover:opacity-100">
                 <div class="flex flex-col">
@@ -19,11 +20,14 @@
                 <div class="flex items-center gap-20 ml-auto">
                     <span class="text-2xl font-display">{{item.allocationPercentage}}%</span>
                     <span
-                        class="px-10 py-5 text-xs text-center text-gray-400 bg-green-500 rounded-full min-w-96 bg-opacity-20">{{item.assetClass}}</span>
+                        class="px-5 py-5 text-xs text-center text-gray-400 bg-green-500 rounded-full min-w-128 bg-opacity-20">{{item.assetClass}}</span>
                 </div>
             </li>
             }
         </ul>
+     } @else {
+        <img src="recommendation-loading.svg" class="m-20 animate-pulse" @fadeIn>
+     }
     </section>
     <section class="flex flex-col flex-grow h-full overflow-auto gap-30">
         <div class="flex items-center gap-20">
