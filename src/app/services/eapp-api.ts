@@ -26,6 +26,11 @@ export class EAppApiService {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<ApplicatonResponse>(this.submitAppUrl, application, { headers: headers });
     }
+
+    getApplication(id: string): Observable<ApiEAppModel> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get<ApiEAppModel>(this.submitAppUrl);;
+    }
 }
 
 
