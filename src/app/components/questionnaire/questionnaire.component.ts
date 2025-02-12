@@ -76,7 +76,7 @@ export class QuestionnaireComponent implements OnInit {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
         this.apiEApp.status = 'Pending';
-        this.apiEApp.id = crypto.randomUUID();
+        this.apiEApp.id = '1b52135e-ef8b-40f0-a176-f7578aa416da'; // todo don't hardocde
         this.apiEApp.templateId = templateId;
         this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
