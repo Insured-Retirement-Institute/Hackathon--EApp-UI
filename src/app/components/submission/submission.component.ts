@@ -24,7 +24,7 @@ export class SubmissionComponent implements OnInit {
   
   ngOnInit(): void {
     this.carriers.forEach(carrier => { if(carrier.id != 1) carrier.checked = false; }); //reset list
-    this.recommendedAllocation = PricingModelMock; // this.recApi.currentRecommendation;
+    this.recommendedAllocation = this.recApi.currentRecommendation;
     this.cd.markForCheck();
   }
 
