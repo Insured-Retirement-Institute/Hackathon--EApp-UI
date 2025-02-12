@@ -25,14 +25,14 @@
             }
         </ul>
     </section>
-    <section class="flex flex-col flex-grow h-full gap-30">
+    <section class="flex flex-col flex-grow h-full overflow-auto gap-30">
         <div class="flex items-center gap-20">
             <div class="mr-auto">
                 <h1 class="text-xl font-display">Carrier Gallery</h1>
                 <p>Select the carrier you would like to shop with below:</p>
             </div>
             <button mat-flat-button (click)="shop()">
-                <span class="flex items-center justify-center w-full gap-5">
+                <span class="flex items-center justify-center w-full gap-5 min-w-200">
                     <mat-icon class="">shopping_bag</mat-icon>
                     <span>Shop</span>
                   </span>
@@ -40,7 +40,7 @@
         </div>
         <section class="grid grid-cols-4 gap-20" [@fadeIn]="carriers.length">
             @for (item of carriers; track $index) {
-            <div class="relative flex flex-col gap-20 overflow-hidden transition duration-150 border-solid rounded-lg bg-zinc-800 min-h-280"
+            <div class="relative flex flex-col gap-20 overflow-hidden transition duration-150 border-solid rounded-lg bg-zinc-800 min-h-280 "
                 [ngClass]="{'border-2 border-solid border-blue-500': item.checked, 'border border-gray-700': !item.checked}">
                 <span class="absolute top-0 left-0 flex m-10 transition-opacity duration-200 bg-green-500 rounded-full w-30 h-30 bg-opacity-30"
                 [ngClass]="{'opacity-100': item.checked, 'opacity-0' : !item.checked}">
@@ -54,7 +54,7 @@
                     </span>
                 </div>
                 @if (pricingByCarrier[item.id]) {
-                <div @fadeIn class="flex flex-col gap-20 p-10">
+                <div @fadeIn class="flex flex-col gap-20 p-10 mt-auto">
                     <div class="flex gap-20 p-10 bg-blue-800 rounded-md">
                 
                         @for (funds of pricingByCarrier[item.id].funds; track $index) {
@@ -65,16 +65,15 @@
                         }
                 
                     </div>
-                    <button mat-flat-button (click)="shop()" [disabled]="!pricingByCarrier[item.id]">
+                    <button mat-flat-button (click)="submitApp()" [disabled]="!pricingByCarrier[item.id]">
                         <span class="flex items-center justify-center w-full gap-5 mt-auto">
-                            <mat-icon class="">shopping_bag</mat-icon>
                             <span>Buy</span>
                         </span>
                     </button>
                 </div>
                 } @else {
                     <div @fadeIn class="flex flex-col gap-20 p-10 mt-auto h-150">
-                        <div class="rounded-md h-72 bg-zinc-700"></div>
+                        <div class="rounded-md h-[74px] bg-zinc-700"></div>
                         <div class="h-40 rounded-full bg-zinc-700"> </div>
                     </div>
                 }
@@ -83,13 +82,5 @@
             </div>
             }
         </section>
-        <div class="flex justify-center gap-20 mt-auto col-span-full p-30">
-            <button mat-flat-button (click)="shop()">
-                <span class="flex items-center justify-center w-full gap-5">
-                    <mat-icon class="">shopping_bag</mat-icon>
-                    <span>Shop</span>
-                  </span>
-            </button>
-        </div>
     </section>
 </section>
