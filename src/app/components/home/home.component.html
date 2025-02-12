@@ -1,33 +1,45 @@
+@if(!loading){
 <div class="flex flex-col items-center justify-center min-h-screen px-6" @fadeIn>
-  <main class="flex flex-col gap-20 mt-20 text-center">
-      <h2 class="text-3xl font-display">Protect Your Retirement</h2>
-      <p class="mt-4 text-lg text-gray-300">Take advantage of asset protection and lifetime income</p>
-      @for (template of templates; track template.id) {
-        <button class="px-6 py-3 mt-6 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600" [routerLink]="['/questionnaire', template.id, 'new']" routerLinkActive="router-link-active" >{{displayNameDict[template.name]}}</button>
+    <main class="flex flex-col gap-20 mt-20 text-center">
+        <div class="flex pt-20 h-256">
+            <ng-lottie [options]="animationOptions" class="block w-full" />
+        </div>
+        <h2 class="text-3xl font-display">Protect Your Retirement</h2>
+        <p class="mt-4 text-lg text-gray-300">Take advantage of asset protection and lifetime income</p>
+        <div class="grid w-full grid-cols-2 gap-20">
+            @for (template of templates; track template.id) {
+            <button [routerLink]="['/questionnaire', template.id, 'new']"
+                class="flex flex-col col-span-1 gap-20 transition duration-150 bg-opacity-50 rounded-md p-30 bg-zinc-900 hover:bg-opacity-100 hover:bg-blue-950">
+                <mat-icon class="mx-auto">military_tech</mat-icon>
+                <p class="mx-auto text-xl text-center font-display">{{displayNameDict[template.name]}}</p>
+            </button>
 
-      }
-  </main>
-  <section id="features" class="mt-16 max-w-640">
-      <h3 class="text-3xl font-bold text-center">Features</h3>
-      <div class="grid grid-cols-1 gap-20 mt-20 md:grid-cols-3">
-          <div class="p-6 text-center bg-gray-800 rounded-lg">
-              <span class="mb-2 text-4xl material-icons">shield</span>
-              <h4 class="text-xl font-semibold">Protection</h4>
-              <p class="text-gray-400">Avoid asset loss.</p>
-          </div>
-          <div class="p-6 text-center bg-gray-800 rounded-lg">
-              <span class="mb-2 text-4xl material-icons">show_chart</span>
-              <h4 class="text-xl font-semibold">Lifetime Income</h4>
-              <p class="text-gray-400">Guaranteed income for life.</p>
-          </div>
-          <div class="p-6 text-center bg-gray-800 rounded-lg">
-              <span class="mb-2 text-4xl material-icons">palette</span>
-              <h4 class="text-xl font-semibold">Personalized</h4>
-              <p class="text-gray-400">Fully customized for you.</p>
-          </div>
-      </div>
-  </section>
-  <footer id="contact" class="w-full py-10 mt-40 text-center border-t border-gray-700">
-      <p class="text-gray-400">&copy; 2025 IRI Hackathon. All rights reserved.</p>
-  </footer>
+            }
+        </div>
+
+    </main>
+    <section id="features" class="mt-16 max-w-640">
+        <h3 class="text-3xl font-bold text-center">Features</h3>
+        <div class="grid grid-cols-1 gap-20 mt-20 md:grid-cols-3">
+            <div class="p-6 text-center bg-gray-800 rounded-lg">
+                <span class="mb-2 text-4xl material-icons">shield</span>
+                <h4 class="text-xl font-semibold">Protection</h4>
+                <p class="text-gray-400">Avoid asset loss.</p>
+            </div>
+            <div class="p-6 text-center bg-gray-800 rounded-lg">
+                <span class="mb-2 text-4xl material-icons">show_chart</span>
+                <h4 class="text-xl font-semibold">Lifetime Income</h4>
+                <p class="text-gray-400">Guaranteed income for life.</p>
+            </div>
+            <div class="p-6 text-center bg-gray-800 rounded-lg">
+                <span class="mb-2 text-4xl material-icons">palette</span>
+                <h4 class="text-xl font-semibold">Personalized</h4>
+                <p class="text-gray-400">Fully customized for you.</p>
+            </div>
+        </div>
+    </section>
+    <footer id="contact" class="w-full py-10 mt-40 text-center border-t border-gray-700">
+        <p class="text-gray-400">&copy; 2025 IRI Hackathon. All rights reserved.</p>
+    </footer>
 </div>
+}

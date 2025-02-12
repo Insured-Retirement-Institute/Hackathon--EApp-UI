@@ -7,12 +7,15 @@ import { EAppApiService, TemplateBase } from '../../services/eapp-api';
 import { PricingApiService, PricingRequestModel } from '../../services/pricing.api';
 import { RouterModule } from '@angular/router';
 import { fadeIn } from '../../services/animations';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    RouterModule
+    RouterModule,
+    LottieComponent,
+    MatIconModule
   ],
   animations: [
     fadeIn
@@ -21,23 +24,29 @@ import { fadeIn } from '../../services/animations';
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class HomeComponent implements OnInit { 
-  templates:TemplateBase[] = [];
-  displayNameDict:Record<string, string> = {
+export class HomeComponent implements OnInit {
+  templates: TemplateBase[] = [];
+  displayNameDict: Record<string, string> = {
     ["D2C"]: "Direct to Consumer",
-    ["FIA"] : "Fixed Indexed Annuity",
+    ["FIA"]: "Fixed Indexed Annuity",
     ["MYGA"]: "Multi-Year Guaranteed Annuity",
     ["BDFIA"]: "Broker-Dealer Fixed Indexed Annuity",
-  }
-
-  constructor(private recommendationsService: RecommendationApiService, private templateApiService:EAppApiService,
+  };
+  animationOptions: AnimationOptions = {
+    path: 'background-1.json'
+  };
+  loading = false;
+  constructor(private recommendationsService: RecommendationApiService, private templateApiService: EAppApiService,
     private pricingService: PricingApiService, private cd: ChangeDetectorRef
   ) { }
+
   ngOnInit(): void {
+    this.loading = true;
     this.templateApiService.getTemplates().subscribe((response) => {
       console.log(response);
       this.templates = response;
       this.cd.markForCheck();
+      this.loading = false;
     });
     // this.recommendationsService.getRecommendations('jj').subscribe((response) => {
     //   console.log(response);
