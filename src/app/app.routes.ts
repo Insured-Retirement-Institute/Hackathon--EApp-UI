@@ -17,7 +17,7 @@ export const appRoutes: Routes = [
     },
     {
         title: 'App History',
-        path: 'apphistory',
+        path: 'app-history',
         component: AppHistoryComponent,
     },
     {

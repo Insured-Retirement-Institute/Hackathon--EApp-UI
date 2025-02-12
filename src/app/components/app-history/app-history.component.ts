@@ -1,10 +1,17 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { EAppApiService } from '../../services/eapp-api';
 import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-history',
-  imports: [],
+  imports: [
+    MatButtonModule,
+    CommonModule,
+    MatIconModule
+  ],
   templateUrl: './app-history.component.html',
   styleUrl: './app-history.component.scss',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -18,7 +25,10 @@ export class AppHistoryComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.applications = [{ templateId: '1', id: '1234432432312', firstName: 'John', lastName: 'Doe', duration: 10 }]; 
+    this.applications = [
+      { templateId: '1', id: '1234432432312', firstName: 'John', lastName: 'Doe', status: 'Pending', duration: 10 },
+      { templateId: '1', id: '1234432432312', firstName: 'Susan', lastName: 'Doe', status: 'Complete', duration: 10 }
+    ]; 
 
     // Fetch the applications from the service
     // this.eAppApiService.getApplicationHistory().subscribe(

@@ -11,7 +11,8 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
 import { MatIcon } from '@angular/material/icon';
-import { DotLottie } from '@lottiefiles/dotlottie-web';
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+
 @Component({
   selector: 'app-questionnaire',
   imports: [
@@ -23,6 +24,7 @@ import { DotLottie } from '@lottiefiles/dotlottie-web';
     MatProgressBarModule,
     RouterModule,
     MatIcon,
+    LottieComponent
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',
@@ -36,6 +38,9 @@ export class QuestionnaireComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private recommendationApi: RecommendationApiService
   ) { }
+  animationOptions: AnimationOptions = {
+    path: 'src/app/assets/loading.json'
+  }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({
