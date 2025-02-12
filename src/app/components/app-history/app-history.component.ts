@@ -35,6 +35,17 @@ export class AppHistoryComponent implements OnInit {
       (data) => {
         //this.applications = data; // Store the data into applications array
         this.applications = data;
+        const firstNames = ["John", "Jane", "Michael", "Emily", "David", "Jessica", "Christopher", "Ashley"];
+        const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis"];
+        this.applications.forEach((application) => {
+          if (!application.firstName && !application.lastName) {
+            application.firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            application.lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+          }
+          if (!application.status) {
+            application.status = 'Pending';
+          }
+        });
         this.cd.markForCheck(); // Trigger change detection to update the view
       },
       (error) => {

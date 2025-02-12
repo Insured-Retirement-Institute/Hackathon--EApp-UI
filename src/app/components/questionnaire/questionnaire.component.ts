@@ -70,6 +70,10 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
+        this.apiEApp.status = 'Pending';
+        this.apiEApp.id = crypto.randomUUID();
+        this.apiEApp.templateid = templateId;
+        this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
         this.initializeForm();
@@ -183,6 +187,7 @@ export class QuestionnaireComponent implements OnInit {
         })
       }
     }));
+    this.eAppApi.currentApp = this.apiEApp!;
     this.recommendationApi.getRecommendations(data)
     .subscribe((response) => {
       this.recommendationApi.currentRecommendation = response;
@@ -214,7 +219,10 @@ export enum DataTypeEnum {
 
 export interface ApiEAppModel {
   id: string,
+  templateid: string,
+  status: string,
   callbackUrl: string,
+  name: string;
   stages: Stage[],
 };
 

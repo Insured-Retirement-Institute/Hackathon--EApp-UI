@@ -26,23 +26,17 @@
             <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-l-md bg-zinc-800">{{ application.firstName }} {{application.lastName }}</td>
             <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 bg-zinc-800">{{ application.duration }} Year(s)</td>
             <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 bg-zinc-800">
-              <!-- <span class="px-10 py-5 text-xs uppercase rounded-full bg-opacity-30" [ngClass]="{
+              <span class="px-10 py-5 text-xs uppercase rounded-full bg-opacity-30" [ngClass]="{
                   'bg-blue-500': application.status === 'Pending',
                   'bg-green-500': application.status === 'Complete'
                 }">
-                {{ "Pending" }}
-              </span> -->
-              <span class="px-10 py-5 text-xs uppercase rounded-full bg-opacity-30" [ngClass]="{
-                  'bg-green-500': 1==1
-                }">
-                Pending
+                {{ application.status }}
               </span>
             </td>
             <td class="justify-end px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-r-md bg-zinc-800 text-end">
               <button mat-button (click)="continueApplication(application.templateId, application.applicationId)">
                 <span class="flex items-center justify-center w-full gap-5">
-                  <!-- {{application.status === 'Pending' ? 'Continue' : 'View'}} -->
-                  View
+                  {{application.status === 'Pending' ? 'Continue' : 'View'}}
                   <mat-icon class="text-lg">arrow_forward</mat-icon>
                 </span>
               </button>

@@ -26,7 +26,7 @@ export class EAppApiService {
         return this.http.get<ApiEAppModel>(`${this.getTemplateUrl}/${templateId}`);
     }
 
-    submitApplication(application: ApiEAppModel): Observable<any> {
+    submitApplication(application: ApiEAppModel): Observable<ApplicatonResponse> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<ApplicatonResponse>(this.submitAppUrl, application, { headers: headers });
     }
@@ -49,6 +49,7 @@ export interface ApplicationHistoryResponse{
     lastName: string,
     duration: string,
     submittedDate: Date,
+    status: string
 }
 
 export interface ApplicatonResponse {
