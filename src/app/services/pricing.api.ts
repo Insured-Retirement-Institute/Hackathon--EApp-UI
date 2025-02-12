@@ -86,11 +86,13 @@ export interface Fund {
 export interface PricingRequestModel {
     requestorName: string,
     allocations: Allocation[],
+    Reason?: string,
 }
 
 export interface Allocation {
     assetClass: string,
     assetId: string,
+    assetDisplayName: string,
     allocationPercentage: number,
     }
 

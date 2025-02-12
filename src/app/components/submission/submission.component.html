@@ -1,47 +1,83 @@
-<div class="mt-10 flex justify-center items-center">
+<section class="flex flex-grow gap-40 overflow-hidden bg-gradient-to-tr from-indigo-950 via-zinc-900 to-zinc-900 p-30">
+    <section
+        class="flex flex-col overflow-hidden border border-solid rounded-lg shadow-xl bg-zinc-900 w-460 border-zinc-700">
+        <div class="flex flex-col p-20">
+            <h1 class="text-xl font-display">Recommendation Results</h1>
+            <p class="text-xs text-gray-400">For {{pricingModel.requestorName}}</p>
+            <p class="mt-20 text-sm">{{pricingModel.Reason}}</p>
+        </div>
+        <span class="h-px mx-20 bg-gray-700"></span>
+        <ul class="flex flex-col gap-10 p-20 overflow-auto">
+            @for (item of pricingModel.allocations; track $index) {
+            <li
+                class="flex gap-10 px-20 py-10 transition duration-150 rounded-md bg-zinc-800 opacity-80 hover:opacity-100">
+                <div class="flex flex-col">
+                    <p class="text-sm font-semibold">{{item.assetDisplayName}}</p>
+                    <p class="text-gray-400 text-2xs">{{item.assetId}}</p>
+                </div>
+                <div class="flex items-center gap-10 ml-auto">
+                    <span class="text-2xl font-display">{{item.allocationPercentage}}%</span>
+                    <span
+                        class="px-10 py-5 text-xs text-gray-400 bg-green-500 rounded-full bg-opacity-20">{{item.assetClass}}</span>
+                </div>
+            </li>
+            }
+        </ul>
+    </section>
+    <section class="grid flex-grow grid-cols-3 gap-20">
+        @for (item of carriers; track $index) {
+        <div class="relative flex p-20 transition duration-150 border-0 rounded-lg bg-zinc-800 h-256" [ngClass]="{'border-2 border-solid border-blue-500': item.checked}">
+            <input type="checkbox" class="absolute inset-0 opacity-0" [(ngModel)]="item.checked" (ngModelChange)="updateCarrierList(item)">
+            <h2 class="text-xl font-display">{{item.name}}</h2>
+        </div>
+        }
+    </section>
+</section>
+
+<!-- <div class="flex items-center justify-center mt-10">
     <h1>Portfolio Allocation</h1>
-<p><strong>Risk Profile:</strong> Aggressive Growth</p>
-<p><strong>Total Positions:</strong> 11</p>
-<p><strong>Rebalancing Frequency:</strong> Quarterly</p>
+    <p><strong>Risk Profile:</strong> Aggressive Growth</p>
+    <p><strong>Total Positions:</strong> 11</p>
+    <p><strong>Rebalancing Frequency:</strong> Quarterly</p>
 
-<div>
-    <h2>PRIMARY AFFINITY (35%)</h2>
-    <ul>
-        <li><strong>NVDA</strong> - NVIDIA Corporation (12%)</li>
-        <li><strong>MSFT</strong> - Microsoft Corporation (13%)</li>
-        <li><strong>CRM</strong> - Salesforce (10%)</li>
-    </ul>
-</div>
+    <div>
+        <h2>PRIMARY AFFINITY (35%)</h2>
+        <ul>
+            <li><strong>NVDA</strong> - NVIDIA Corporation (12%)</li>
+            <li><strong>MSFT</strong> - Microsoft Corporation (13%)</li>
+            <li><strong>CRM</strong> - Salesforce (10%)</li>
+        </ul>
+    </div>
 
-<div>
-    <h2>GROWTH SECTORS (25%)</h2>
-    <ul>
-        <li><strong>DKNG</strong> - DraftKings Inc (8%)</li>
-        <li><strong>COIN</strong> - Coinbase Global (9%)</li>
-        <li><strong>NKE</strong> - Nike Inc (8%)</li>
-    </ul>
-</div>
+    <div>
+        <h2>GROWTH SECTORS (25%)</h2>
+        <ul>
+            <li><strong>DKNG</strong> - DraftKings Inc (8%)</li>
+            <li><strong>COIN</strong> - Coinbase Global (9%)</li>
+            <li><strong>NKE</strong> - Nike Inc (8%)</li>
+        </ul>
+    </div>
 
-<div>
-    <h2>STABLE INCOME (15%)</h2>
-    <ul>
-        <li><strong>V</strong> - Visa Inc (8%)</li>
-        <li><strong>MA</strong> - Mastercard Inc (7%)</li>
-    </ul>
-</div>
+    <div>
+        <h2>STABLE INCOME (15%)</h2>
+        <ul>
+            <li><strong>V</strong> - Visa Inc (8%)</li>
+            <li><strong>MA</strong> - Mastercard Inc (7%)</li>
+        </ul>
+    </div>
 
-<div>
-    <h2>INTERNATIONAL EXPOSURE (15%)</h2>
-    <ul>
-        <li><strong>TSM</strong> - Taiwan Semiconductor (8%)</li>
-        <li><strong>ASML</strong> - ASML Holding (7%)</li>
-    </ul>
-</div>
+    <div>
+        <h2>INTERNATIONAL EXPOSURE (15%)</h2>
+        <ul>
+            <li><strong>TSM</strong> - Taiwan Semiconductor (8%)</li>
+            <li><strong>ASML</strong> - ASML Holding (7%)</li>
+        </ul>
+    </div>
 
-<div>
-    <h2>FIXED INCOME (10%)</h2>
-    <ul>
-        <li><strong>AGG</strong> - iShares Core U.S. Aggregate Bond ETF (10%)</li>
-    </ul>
-</div>
-</div>
+    <div>
+        <h2>FIXED INCOME (10%)</h2>
+        <ul>
+            <li><strong>AGG</strong> - iShares Core U.S. Aggregate Bond ETF (10%)</li>
+        </ul>
+    </div>
+</div> -->
