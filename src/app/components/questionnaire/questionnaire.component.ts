@@ -6,7 +6,6 @@ import { OrderModule } from 'ngx-order-pipe';
 import { MatButton } from '@angular/material/button';
 import { RecommendationApiService } from '../../services/recommendation-api';
 import { CommonModule } from '@angular/common';
-import { SubmissionComponent } from '../submission/submission.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionnaireParams } from '../../app.component';
@@ -20,7 +19,6 @@ import { EAppApiService } from '../../services/eapp-api';
     StageComponent,
     OrderModule,
     CommonModule,
-    SubmissionComponent,
     MatProgressBarModule,
     RouterModule,
   ],
