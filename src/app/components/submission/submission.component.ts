@@ -7,6 +7,7 @@ import { PricingApiService, PricingRequestModel, PricingResponseModel } from '..
 import { EAppApiService } from '../../services/eapp-api';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { fadeIn } from '../../services/animations';
 
 @Component({
   selector: 'app-submission',
@@ -15,6 +16,9 @@ import { MatIconModule } from '@angular/material/icon';
     FormsModule,
     MatButtonModule,
     MatIconModule
+  ],
+  animations: [
+    fadeIn
   ],
   templateUrl: './submission.component.html',
   styleUrl: './submission.component.scss'
@@ -64,7 +68,7 @@ export class SubmissionComponent implements OnInit {
   carriers: CarrierModel[] = [
     {
       id: 1,
-      name: 'AEL',
+      name: 'American Equity',
       imgUrl: 'ael.svg',
       checked: true,
       rating: 'A'

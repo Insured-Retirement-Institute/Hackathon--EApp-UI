@@ -12,6 +12,7 @@ import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
 import { MatIcon } from '@angular/material/icon';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { fadeIn } from '../../services/animations';
 
 @Component({
   selector: 'app-questionnaire',
@@ -26,6 +27,9 @@ import { LottieComponent, AnimationOptions } from 'ngx-lottie';
     MatIcon,
     LottieComponent
   ],
+  animations: [
+    fadeIn
+  ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -39,7 +43,7 @@ export class QuestionnaireComponent implements OnInit {
     private recommendationApi: RecommendationApiService
   ) { }
   animationOptions: AnimationOptions = {
-    path: 'src/app/assets/loading.json'
+    path: 'loading.json'
   }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
