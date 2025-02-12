@@ -186,7 +186,6 @@ export class QuestionnaireComponent implements OnInit {
     this.recommendationApi.getRecommendations(data)
     .subscribe((response) => {
       this.recommendationApi.currentRecommendation = response;
-      // route to shop page
   });
   }
 }

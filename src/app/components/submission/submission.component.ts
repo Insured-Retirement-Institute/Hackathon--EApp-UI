@@ -4,6 +4,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { PricingModelMock } from '../../constants/allocation-mock.constant';
 import { FormsModule } from '@angular/forms';
 import { PricingApiService, PricingRequestModel, PricingResponseModel } from '../../services/pricing.api';
+import { EAppApiService } from '../../services/eapp-api';
 
 @Component({
   selector: 'app-submission',
@@ -15,19 +16,26 @@ import { PricingApiService, PricingRequestModel, PricingResponseModel } from '..
   styleUrl: './submission.component.scss'
 })
 export class SubmissionComponent implements OnInit {
-  constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef) { }
+  constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef,
+    private eappApi: EAppApiService)
+ { }
   recommendedAllocation?:PricingRequestModel;
   pricingByCarrier: Record<number, PricingResponseModel> = {};
   
   ngOnInit(): void {
     this.carriers.forEach(carrier => { if(carrier.id != 1) carrier.checked = false; }); //reset list
-    this.recommendedAllocation = PricingModelMock; // this.recApi.currentRecommendation;
+    this.recommendedAllocation = this.recApi.currentRecommendation;
     this.cd.markForCheck();
   }
 
-  getPricing(): void {
+  shop(): void {
+    const request = structuredClone(this.recommendedAllocation);
+    request?.allocations.forEach(allocation => {
+      allocation.assetClass = 'Stock'; // workaround for the fact that the API doesn't accept dynamic asset classes
+    });
+    request!.requestorName = "Andrew Barnett"; // maybe dynamic?
     this.pricingByCarrier = {};
-    this.pricingApi.getPricing(this.recommendedAllocation!).subscribe((response) => {
+    this.pricingApi.getPricing(request!).subscribe((response) => {
       this.pricingByCarrier[1] = response;
       this.carriers.forEach(carrier => {
         if (carrier.checked && carrier.id != 1) {
@@ -40,6 +48,14 @@ export class SubmissionComponent implements OnInit {
       })
       this.cd.markForCheck();
     });  
+  }
+
+  submitApp(): void {
+    const form = this.eappApi.currentApp;
+    this.eappApi.submitApplication(form!).subscribe((response) => {
+      alert('App submitted!');
+      console.log(response);
+    });
   }
 
   carriers:CarrierModel[] = [
@@ -65,7 +81,7 @@ export class SubmissionComponent implements OnInit {
       id: 4,
       name: 'Prudential',
       checked: false,
-      rating: 'A='
+      rating: 'A+'
     },
     {
       id: 5,
