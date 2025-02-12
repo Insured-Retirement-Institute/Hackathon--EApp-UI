@@ -46,8 +46,13 @@ export class SubmissionComponent implements OnInit {
     const request = structuredClone(this.recommendedAllocation);
     request?.allocations.forEach(allocation => {
       allocation.assetClass = 'Stock'; // workaround for the fact that the API doesn't accept dynamic asset classes
-      allocation.allocationPercentage = Math.ceil(allocation.allocationPercentage);
+      allocation.allocationPercentage = Math.floor(allocation.allocationPercentage);
     });
+    const sum = request?.allocations.reduce((acc, val) => acc + val.allocationPercentage, 0);
+    console.log(sum);
+    const diff = 100 - sum!;
+    console.log(diff);
+    request!.allocations[0].allocationPercentage += diff;
     request!.requestorName = "Andrew Barnett"; // maybe dynamic?
     this.pricingByCarrier = {};
     this.pricingApi.getPricing(request!).subscribe((response) => {
