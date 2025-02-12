@@ -33,7 +33,8 @@ export class QuestionnaireComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private eAppApi: EAppApiService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private recommendationApi: RecommendationApiService
   ) { }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
@@ -156,19 +157,26 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   submit(): void {
-    let postModel: PostModel = {
-      id: this.apiEApp!.id,
-      dataItems: []
-    };
+    let data:QuestionAnswer[] = [];
     this.mainForm.value.stages?.forEach(s => s.dataItems?.forEach(d => {
       if (d.dataItemId && d.selectedValue) {
-        postModel.dataItems.push({
-          dataItemId: d.dataItemId,
-          value: d.selectedValue
+        data.push({
+          question: d.displayLabel ?? '',
+          answer: d.selectedValue
         })
       }
     }));
+    this.recommendationApi.getRecommendations(data)
+    .subscribe((response) => {
+      this.recommendationApi.currentRecommendation = response;
+      // route to shop page
+  });
   }
+}
+
+export interface QuestionAnswer {
+  question: string;
+  answer: string;
 }
 
 export interface PostModel {

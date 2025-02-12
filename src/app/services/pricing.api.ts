@@ -41,7 +41,8 @@ export class PricingApiService {
         }
         return {
             requestorName: 'Valued Client',
-            allocations: allocations
+            allocations: allocations,
+            reason: "You're dumb and need help",
         }
     }
 
@@ -86,12 +87,14 @@ export interface Fund {
 export interface PricingRequestModel {
     requestorName: string,
     allocations: Allocation[],
+    reason: string
 }
 
 export interface Allocation {
     assetClass: string,
     assetId: string,
     allocationPercentage: number,
+    assetDisplayName: string
     }
 
     // {
