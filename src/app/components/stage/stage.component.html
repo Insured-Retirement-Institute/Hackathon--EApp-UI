@@ -61,48 +61,48 @@
             <div [formGroupName]="$index" class="flex flex-col gap-10">
                 <p class="" @fadeIn>{{item.displayLabel}}</p>
                 @switch (item.dataType) {
-                @case(dataTypeEnum.radio) {
-                <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20" @fadeIn>
-                    @for (opt of item.dataOptions; track $index) {
-                    <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                    @case(dataTypeEnum.radio) {
+                    <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                        }
+                    </mat-radio-group>
                     }
-                </mat-radio-group>
-                }
 
-                @case(dataTypeEnum.select) {
-                <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
-                    @for (opt of item.dataOptions; track $index) {
-                    <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                    @case(dataTypeEnum.select) {
+                    <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                        }
+                    </mat-select>
                     }
-                </mat-select>
-                }
 
-                @case(dataTypeEnum.shortText) {
-                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
-                }
+                    @case(dataTypeEnum.shortText) {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                    }
 
-                @case(dataTypeEnum.longText) {
-                <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
-                    placeholder="Please answer" @fadeIn></textarea>
-                }
+                    @case(dataTypeEnum.longText) {
+                    <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                        placeholder="Please answer" @fadeIn></textarea>
+                    }
 
-                @case(dataTypeEnum.date) {
-                <div class="flex items-center gap-10">
-                    <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
-                </div>
-                }
+                    @case(dataTypeEnum.date) {
+                    <div class="flex items-center gap-10">
+                        <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+                    </div>
+                    }
 
-                @default {
-                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                    @default {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                    }
                 }
+                @if (stage.title === 'Funding' && item.displayLabel === 'What is the account number of your account?') {
+                    <app-plaid-link></app-plaid-link>
                 }
             </div>
             }}
-            @if (stage.title === 'Funding') {
-                <app-plaid-link></app-plaid-link>
-            }
             }
 
         </div>
