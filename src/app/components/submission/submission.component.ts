@@ -61,8 +61,9 @@ export class SubmissionComponent implements OnInit {
     const form = this.eappApi.currentApp;
     console.log(form);
     this.eappApi.submitApplication(form!).subscribe((response) => {
-      alert('App submitted!');
-      console.log(response);
+      this.eappApi.signApp(response.id).subscribe((response) => {
+        console.log("");
+      });
     });
   }
 

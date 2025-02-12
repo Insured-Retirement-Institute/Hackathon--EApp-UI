@@ -68,6 +68,7 @@ export class QuestionnaireComponent implements OnInit {
         this.apiEApp = response;
         this.activeStage = this.apiEApp.stages[0];
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
+        this.eAppApi.currentApp = this.apiEApp;
         this.initializeForm();
         this.cd.markForCheck();
       });
@@ -76,10 +77,13 @@ export class QuestionnaireComponent implements OnInit {
         this.apiEApp = response;
         this.apiEApp.status = 'Pending';
         this.apiEApp.id = crypto.randomUUID();
-        this.apiEApp.templateid = templateId;
+        this.apiEApp.templateId = templateId;
         this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
+        this.apiEApp.firstname = "Nina";
+        this.apiEApp.lastname = "Taylor";
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
+        this.eAppApi.currentApp = this.apiEApp;
         this.initializeForm();
         this.cd.markForCheck();
       });
@@ -223,10 +227,12 @@ export enum DataTypeEnum {
 
 export interface ApiEAppModel {
   id: string,
-  templateid: string,
+  templateId: string,
   status: string,
   callbackUrl: string,
   name: string;
+  firstname: string;
+  lastname: string;
   stages: Stage[],
 };
 

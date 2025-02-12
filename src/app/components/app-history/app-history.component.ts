@@ -39,8 +39,8 @@ export class AppHistoryComponent implements OnInit {
       (data) => {
         //this.applications = data; // Store the data into applications array
         this.applications = data;
-        const firstNames = ["John", "Jane", "Michael", "Emily", "David", "Jessica", "Christopher", "Ashley"];
-        const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis"];
+        const firstNames = ["John", "Jane", "Michael", "Emily", "David", "Jessica", "Christopher", "Ashley", "Neal", "Jerome", "Eugene", "Nikki", "Jason"];
+        const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Patel", "Rodriguez", "Martinez", "Hernandez", "Park"];
         this.applications.forEach((application) => {
           if (!application.firstName && !application.lastName) {
             application.firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
@@ -48,6 +48,10 @@ export class AppHistoryComponent implements OnInit {
           }
           if (!application.status) {
             application.status = 'Pending';
+          }
+
+          if (!application.duration) {
+            application.duration = Math.floor(Math.random() * 20).toString();
           }
         });
         this.cd.markForCheck(); // Trigger change detection to update the view
