@@ -52,9 +52,9 @@ export class QuestionnaireComponent implements OnInit {
 
   ngOnInit(): void {
     const templateId = this.activatedRoute.snapshot.paramMap.get('templateId') as string;
-    const applicationId = this.activatedRoute.snapshot.paramMap.get('applicationId');
+    const applicationId = this.activatedRoute.snapshot.paramMap.get('applicationId') as string;
 
-    if (applicationId) {
+    if (applicationId && applicationId !== 'new') {
       this.eAppApi.getApplication(applicationId).subscribe((response) => {
         this.apiEApp = response;
         this.activeStage = this.apiEApp.stages[0];
