@@ -46,6 +46,25 @@ export class PricingApiService {
         }
     }
 
+    example:PricingRequestModel = {
+        requestorName: 'Valued Client',
+        allocations: [
+            {
+                assetClass: 'Stock',
+                assetId: 'MSFT',
+                assetDisplayName: "Microsoft",
+                allocationPercentage: 70
+            },
+            {
+                assetClass: 'Stock',
+                assetId: 'FIG',
+                assetDisplayName: "FIG",
+                allocationPercentage: 30
+            }
+        ],
+        reason: "You're dumb and need help"
+    }
+
     getPricing(pricingRequest: PricingRequestModel): Observable<PricingResponseModel> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<PricingResponseModel>(this.apiUrl, pricingRequest, { headers: headers });
