@@ -29,14 +29,14 @@ html {
             color: (
                 primary: mat.$blue-palette,
                 tertiary: mat.$orange-palette,
-                theme-type: dark,
-              ),
+                theme-type: dark
+            ),
             typography: (
                 plain-family: Roboto,
                 brand-family: Bebas Neue,
                 bold-weight: 900,
                 medium-weight: 500,
-                regular-weight: 300
+                regular-weight: 400
             ),
             density: 0
         )
@@ -67,4 +67,17 @@ html {
         border: 1px solid var(--mat-sys-outline-variant);
         font: var(--mat-sys-body-medium);
     }
+}
+
+@layer components {
+    .input {
+        @apply transition focus:ring-blue-300 outline-none h-40 px-10 py-10 border border-solid rounded-lg border-zinc-700 ring-0 focus:ring-0 bg-zinc-900;
+    }
+
+    .textarea {
+        @apply outline-none min-h-40 px-10 py-10 border border-solid rounded-lg border-zinc-700 ring-0 focus:ring-0 bg-zinc-900
+    }
+}
+.mat-mdc-select-trigger {
+    @apply h-full;
 }

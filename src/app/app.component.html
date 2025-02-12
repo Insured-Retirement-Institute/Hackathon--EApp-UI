@@ -1,15 +1,16 @@
-<section class="flex-none px-20 py-10 overflow-hidden bg-zinc-900">
+<section class="flex-none px-20 py-10 overflow-hidden bg-zinc-800">
   <ul class="flex items-center gap-10">
-    @for (item of nav; track $index) {
-    @if (item?.title) {
     <li class="p-10">
-      <a [routerLink]="[item.path]" routerLinkActive="text-blue-500" class="text-base tracking-wider font-display">{{item.title}}</a>
+      <a [routerLink]="['/home']" routerLinkActive="text-blue-500"
+        class="text-base tracking-wider font-display">Home</a>
     </li>
-    }
-    }
+    <li class="p-10">
+      <a [routerLink]="['/questionnaire/abcd1234']" [queryParams]="queryParams" routerLinkActive="text-blue-500"
+        class="text-base tracking-wider font-display">Workflow</a>
+    </li>
   </ul>
 </section>
-<section class="flex-grow w-full overflow-hidden">
-  <router-outlet></router-outlet>
+<section class="flex-grow w-full overflow-hidden" [@transitionFadeIn]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 
 </section>

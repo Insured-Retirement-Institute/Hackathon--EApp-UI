@@ -16,7 +16,7 @@ export const appRoutes: Routes = [
     },
     {
         title: 'Questionnaire',
-        path: 'questionnaire',
+        path: 'questionnaire/:templateId',
         component: QuestionnaireComponent,
     },
     {
