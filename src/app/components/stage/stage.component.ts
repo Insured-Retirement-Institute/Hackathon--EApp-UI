@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { DataItemForm, DataOptionForm, DataTypeEnum, Stage, StageForm } from '../questionnaire/questionnaire.component';
+import { DataItem, DataItemForm, DataOptionForm, DataTypeEnum, Stage, StageForm } from '../questionnaire/questionnaire.component';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatRadioGroup, MatRadioModule } from '@angular/material/radio';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
@@ -7,6 +7,8 @@ import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { fadeIn } from '../../services/animations';
+import { PlaidLinkComponent } from '../plaid-link/plaid-link.component';
+
 
 @Component({
   selector: 'app-stage',
@@ -18,8 +20,9 @@ import { fadeIn } from '../../services/animations';
     MatOptionModule,
     CommonModule,
     MatDatepickerModule,
-    MatNativeDateModule 
-  ],
+    MatNativeDateModule ,
+    PlaidLinkComponent
+],
   animations: [fadeIn],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss',
@@ -46,6 +49,18 @@ export class StageComponent implements OnInit {
   isOwnerStage(stageTitle: string): boolean {
     let res = this.ownerStages.includes(stageTitle.toLowerCase());
     return res;
+  }
+
+  canShow(stage: Stage, dataItem: DataItem): boolean {
+    var parent = this.form?.value.dataItems?.find(x => x.dataItemId === dataItem.parentDataItemId);
+    if (!parent) {
+      return true;
+    }
+    if (parent.selectedValue ===  dataItem.parentDataItemRequiredOption) {
+      return true;
+    }
+    
+    return false;
   }
 
   // get options(): FormArray<FormGroup<DataOptionForm>> {
