@@ -1,1 +1,11 @@
-<p>purchase-confirmation works!</p>
+<section class="flex flex-col flex-grow bg-zinc-900">
+    <div class="flex flex-col items-center justify-center flex-grow gap-20 p-30">
+        <span class="flex items-center justify-center w-48 h-48 bg-green-500 rounded-full bg-opacity-20">
+            <span class="material-icons text-[36px] text-green-500">check_circle</span>
+        </span>
+        <p>Application has been sent for signatures!</p>
+    </div>
+    <div class="flex mt-auto border-t border-gray-700 border-solid p-30">
+        <button mat-stroked-button class="ml-auto" (click)="goTo()">Go to Application History</button>
+    </div>
+</section>
