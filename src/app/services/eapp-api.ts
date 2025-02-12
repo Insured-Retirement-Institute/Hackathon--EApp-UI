@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root'
 })
 export class EAppApiService {
+    private baseUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application';
     private getTemplatesUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/templates';
     private getTemplateUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/template';
     private submitAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/submit';
@@ -21,12 +22,23 @@ export class EAppApiService {
         return this.http.get<any>(`${this.getTemplateUrl}/${templateId}`);
     }
 
+    getApplicationHistory(): Observable<any> {
+        return this.http.get<ApplicationHistoryResponse[]>(this.baseUrl + '/history');
+    }
+
     submitApplication(application: Application): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<ApplicatonResponse>(this.submitAppUrl, application, { headers: headers });
     }
 }
 
+export interface ApplicationHistoryResponse{
+    id: string,
+    templateId: string,
+    firstName: string,
+    lastName: string,
+    duration: number,
+}
 
 export interface ApplicatonResponse {
     id: string,

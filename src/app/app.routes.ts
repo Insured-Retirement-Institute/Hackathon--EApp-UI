@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { QuestionnaireComponent } from './components/questionnaire/questionnaire.component';
 import { SubmissionComponent } from './components/submission/submission.component';
+import { AppHistoryComponent } from './components/app-history/app-history.component';
 
 export const appRoutes: Routes = [
     {
@@ -15,8 +16,13 @@ export const appRoutes: Routes = [
         component: HomeComponent,
     },
     {
+        title: 'App History',
+        path: 'apphistory',
+        component: AppHistoryComponent,
+    },
+    {
         title: 'Questionnaire',
-        path: 'questionnaire/:templateId',
+        path: 'questionnaire/:templateId/:applicationId',
         component: QuestionnaireComponent,
     },
     {

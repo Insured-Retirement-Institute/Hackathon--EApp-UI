@@ -1,0 +1,23 @@
+<div class="pending-applications">
+    <h2>Pending Applications</h2>
+    <table class="applications-table">
+      <thead>
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (application of applications; track $index) {
+        <tr>
+          <td>{{ application.firstName }}</td>
+          <td>{{ application.lastName }}</td>
+          <td>
+            <button (click)="continueApplication(application.templateId, application.id)">Continue</button>
+          </td>
+        </tr>}
+      </tbody>
+    </table>
+  </div>
+  
