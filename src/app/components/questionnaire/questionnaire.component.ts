@@ -3,13 +3,15 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Reacti
 import { MatLabel, MatSelectModule } from '@angular/material/select';
 import { StageComponent } from "../stage/stage.component";
 import { OrderModule } from 'ngx-order-pipe';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatFabButton } from '@angular/material/button';
 import { RecommendationApiService } from '../../services/recommendation-api';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
+import { MatIcon } from '@angular/material/icon';
+import { LottieComponent, AnimationOptions } from 'ngx-lottie';
 
 @Component({
   selector: 'app-questionnaire',
@@ -21,6 +23,8 @@ import { EAppApiService } from '../../services/eapp-api';
     CommonModule,
     MatProgressBarModule,
     RouterModule,
+    MatIcon,
+    LottieComponent
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',
@@ -34,6 +38,9 @@ export class QuestionnaireComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private recommendationApi: RecommendationApiService
   ) { }
+  animationOptions: AnimationOptions = {
+    path: 'src/app/assets/loading.json'
+  }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({

@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class HomeComponent implements OnInit { 
   templates:TemplateBase[] = [];
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.templateApiService.getTemplates().subscribe((response) => {
       console.log(response);
       this.templates = response;
-      this.cd.markForCheck();
+
     });
     // this.recommendationsService.getRecommendations('jj').subscribe((response) => {
     //   console.log(response);

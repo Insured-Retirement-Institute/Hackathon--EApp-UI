@@ -3,6 +3,57 @@
     <h1 class="text-xl font-display">{{stage.title}}</h1>
     <form [formGroup]="form">
         <div formArrayName="dataItems" class="flex flex-col gap-30">
+            @if (isOwnerStage(stage.title)) {
+            <div class="grid items-end grid-cols-3 gap-x-20 gap-y-30">
+                @for (item of stage.dataItems; track $index) {
+                <div [formGroupName]="$index" class="flex flex-col col-span-1 gap-10"
+                    [ngClass]="{'col-span-1': item.dataType !== dataTypeEnum.radio && item.dataType !== dataTypeEnum.checkbox, 'col-span-full': item.dataType === dataTypeEnum.radio || item.dataType === dataTypeEnum.checkbox }">
+                    <p class="" @fadeIn>{{item.displayLabel}}</p>
+                    @switch (item.dataType) {
+                    @case(dataTypeEnum.radio) {
+                    <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20 min-w-720" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                        }
+                    </mat-radio-group>
+                    }
+
+                    @case(dataTypeEnum.select) {
+                    <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                        }
+                    </mat-select>
+                    }
+
+                    @case(dataTypeEnum.shortText) {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
+                        @fadeIn>
+                    }
+
+                    @case(dataTypeEnum.longText) {
+                    <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                        placeholder="Please answer" @fadeIn></textarea>
+                    }
+
+                    @case(dataTypeEnum.date) {
+                    <div class="flex items-center gap-10">
+                        <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+                    </div>
+                    }
+
+                    @default {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
+                        @fadeIn>
+                    }
+                    }
+                </div>
+                }
+            </div>
+            }
+            @else {
             @for (item of stage.dataItems; track $index) {
             <div [formGroupName]="$index" class="flex flex-col gap-10">
                 <p class="" @fadeIn>{{item.displayLabel}}</p>
@@ -24,12 +75,20 @@
                 }
 
                 @case(dataTypeEnum.shortText) {
-                <input class="input" type="text"
-                    formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
                 }
 
                 @case(dataTypeEnum.longText) {
-                <textarea class="textarea" type="text" rows="3" formControlName="selectedValue" placeholder="Please answer" @fadeIn></textarea>
+                <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                    placeholder="Please answer" @fadeIn></textarea>
+                }
+
+                @case(dataTypeEnum.date) {
+                <div class="flex items-center gap-10">
+                    <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+                </div>
                 }
 
                 @default {
@@ -38,6 +97,8 @@
                 }
             </div>
             }
+            }
+
         </div>
 
     </form>
