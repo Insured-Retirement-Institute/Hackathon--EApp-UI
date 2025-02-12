@@ -29,8 +29,13 @@ export class SubmissionComponent implements OnInit {
   }
 
   shop(): void {
+    const request = structuredClone(this.recommendedAllocation);
+    request?.allocations.forEach(allocation => {
+      allocation.assetClass = 'Stock'; // workaround for the fact that the API doesn't accept dynamic asset classes
+    });
+    request!.requestorName = "Andrew Barnett"; // maybe dynamic?
     this.pricingByCarrier = {};
-    this.pricingApi.getPricing(this.recommendedAllocation!).subscribe((response) => {
+    this.pricingApi.getPricing(request!).subscribe((response) => {
       this.pricingByCarrier[1] = response;
       this.carriers.forEach(carrier => {
         if (carrier.checked && carrier.id != 1) {
