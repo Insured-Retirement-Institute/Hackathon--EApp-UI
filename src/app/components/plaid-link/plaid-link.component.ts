@@ -17,9 +17,9 @@ import {
   standalone: true,
 })
 export class PlaidLinkComponent implements OnInit, AfterViewInit {
-  public tokenFetched: boolean = false;
+  public ltFetched: boolean = false;
   // Fetch this from your backend.
-  public linkToken = 'link-sandbox-62f1e2a6-b1c8-4a3d-8910-4a4f3bfdab4e';
+  public lt = 'link-sandbox-ec142fcd-2072-42a0-8b75-ec2945a069d4';
   constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit(): void {
@@ -32,9 +32,9 @@ export class PlaidLinkComponent implements OnInit, AfterViewInit {
   }
 
   enableButton() {
-    // Set the link token and show the button.
-    this.linkToken = 'link-sandbox-62f1e2a6-b1c8-4a3d-8910-4a4f3bfdab4e';
-    this.tokenFetched = true;
+    // Set the lt and show the button.
+    this.lt = 'link-sandbox-ec142fcd-2072-42a0-8b75-ec2945a069d4';
+    this.ltFetched = true;
   }
 
   onSuccess(event: PlaidOnSuccessArgs) {
