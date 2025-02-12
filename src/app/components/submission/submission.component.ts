@@ -28,15 +28,7 @@ export class SubmissionComponent implements OnInit {
     this.cd.markForCheck();
   }
 
-  submitApp(): void {
-    console.log('get form')
-    const form = this.eappApi.currentApp;
-    this.eappApi.submitApplication(form!).subscribe((response) => {
-      console.log(response);
-    });
-  }
-
-  getPricing(): void {
+  shop(): void {
     this.pricingByCarrier = {};
     this.pricingApi.getPricing(this.recommendedAllocation!).subscribe((response) => {
       this.pricingByCarrier[1] = response;
@@ -51,6 +43,14 @@ export class SubmissionComponent implements OnInit {
       })
       this.cd.markForCheck();
     });  
+  }
+
+  submitApp(): void {
+    const form = this.eappApi.currentApp;
+    this.eappApi.submitApplication(form!).subscribe((response) => {
+      alert('App submitted!');
+      console.log(response);
+    });
   }
 
   carriers:CarrierModel[] = [

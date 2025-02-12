@@ -26,9 +26,10 @@
     </section>
     <section class="grid flex-grow grid-cols-3 gap-20">
         @for (item of carriers; track $index) {
-        <div class="relative flex p-20 transition duration-150 border-0 rounded-lg bg-zinc-800 h-256" [ngClass]="{'border-2 border-solid border-blue-500': item.checked}">
-            <input type="checkbox" class="absolute inset-0 opacity-0" [(ngModel)]="item.checked" (ngModelChange)="updateCarrierList(item)">
+        <div class="relative flex flex-col p-20 transition duration-150 border-0 rounded-lg bg-zinc-800 h-256" [ngClass]="{'border-2 border-solid border-blue-500': item.checked}">
+            <!-- <input type="checkbox" class="absolute inset-0 opacity-0" [(ngModel)]="item.checked" (ngModelChange)="updateCarrierList(item)"> -->
             <h2 class="text-xl font-display">{{item.name}}</h2>
+            <h3 class="text-lg font-display">Rating: {{item.rating}}</h3>
         @if (pricingByCarrier[item.id]) {
             @for (funds of pricingByCarrier[item.id].funds; track $index) {
             <p class="mt-10 text-sm">{{funds.fundName}}</p>
@@ -38,7 +39,7 @@
         }
         </div>
         }
-        <button (click)="getPricing()">shop</button>
+        <button (click)="shop()">shop</button>
         <button (click)="submitApp()">Submit App</button>
     </section>
 </section>
