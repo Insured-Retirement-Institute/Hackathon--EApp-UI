@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
     this.templateApiService.getTemplates().subscribe((response) => {
       console.log(response);
       this.templates = response;
-
+      this.cd.markForCheck();
     });
     // this.recommendationsService.getRecommendations('jj').subscribe((response) => {
     //   console.log(response);
