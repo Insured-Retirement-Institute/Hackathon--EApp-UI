@@ -4,6 +4,7 @@ import { CommonModule, JsonPipe } from '@angular/common';
 import { PricingModelMock } from '../../constants/allocation-mock.constant';
 import { FormsModule } from '@angular/forms';
 import { PricingApiService, PricingRequestModel, PricingResponseModel } from '../../services/pricing.api';
+import { EAppApiService } from '../../services/eapp-api';
 
 @Component({
   selector: 'app-submission',
@@ -15,7 +16,9 @@ import { PricingApiService, PricingRequestModel, PricingResponseModel } from '..
   styleUrl: './submission.component.scss'
 })
 export class SubmissionComponent implements OnInit {
-  constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef) { }
+  constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef,
+    private eappApi: EAppApiService)
+ { }
   recommendedAllocation?:PricingRequestModel;
   pricingByCarrier: Record<number, PricingResponseModel> = {};
   
@@ -23,6 +26,14 @@ export class SubmissionComponent implements OnInit {
     this.carriers.forEach(carrier => { if(carrier.id != 1) carrier.checked = false; }); //reset list
     this.recommendedAllocation = PricingModelMock; // this.recApi.currentRecommendation;
     this.cd.markForCheck();
+  }
+
+  submitApp(): void {
+    console.log('get form')
+    const form = this.eappApi.currentApp;
+    this.eappApi.submitApplication(form!).subscribe((response) => {
+      console.log(response);
+    });
   }
 
   getPricing(): void {
