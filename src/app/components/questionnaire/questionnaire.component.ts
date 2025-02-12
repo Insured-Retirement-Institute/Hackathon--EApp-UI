@@ -10,6 +10,7 @@ import { SubmissionComponent } from '../submission/submission.component';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionnaireParams } from '../../app.component';
+import { EAppApiService } from '../../services/eapp-api';
 
 @Component({
   selector: 'app-questionnaire',
@@ -31,6 +32,7 @@ export class QuestionnaireComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private eAppApi: EAppApiService,
   ) { }
   fb = inject(FormBuilder)
   apiEApp = ApiEAppV2;
@@ -47,6 +49,10 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const templateId = this.activatedRoute.snapshot.paramMap.get('templateId') as string;
+    this.eAppApi.getTemplate(templateId).subscribe((response) => {
+      this.apiEApp = response;
+    });
     this.initializeForm();
   }
 
