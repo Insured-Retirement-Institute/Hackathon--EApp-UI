@@ -15,7 +15,7 @@ import { fadeIn } from '../../services/animations';
     CommonModule,
     FormsModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
   animations: [
     fadeIn
