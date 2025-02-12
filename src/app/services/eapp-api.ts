@@ -11,10 +11,9 @@ export class EAppApiService {
     private submitAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/submit';
     constructor(private http: HttpClient) {}
 
-    // TODO figure out what the input type is
-    getTemplates(): Observable<any> {
+    getTemplates(): Observable<TemplateBase[]> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.get<any>(this.getTemplatesUrl);
+        return this.http.get<TemplateBase[]>(this.getTemplatesUrl);
     }
 
     getTemplate(templateId: string): Observable<any> {
