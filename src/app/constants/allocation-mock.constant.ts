@@ -16,5 +16,5 @@ export const PricingModelMock: PricingRequestModel = {
         "allocationPercentage": 50
       }
     ],
-    "Reason": "I chose the following stocks because you displayed a strong interest in the technology field, and these two options have historically performed well."
+    "reason": "I chose the following stocks because you displayed a strong interest in the technology field, and these two options have historically performed well."
   };

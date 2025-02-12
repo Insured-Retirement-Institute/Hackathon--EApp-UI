@@ -114,7 +114,6 @@ export interface Allocation {
     assetId: string,
     assetDisplayName: string,
     allocationPercentage: number,
-    assetDisplayName: string
     }
 
     // {
