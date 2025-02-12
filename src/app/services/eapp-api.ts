@@ -13,6 +13,7 @@ export class EAppApiService {
     private submitAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/submit';
     private historyUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/history';
     private getAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application';
+    private signUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/sign';
     public currentApp?:ApiEAppModel;
     constructor(private http: HttpClient) {}
 
@@ -39,6 +40,11 @@ export class EAppApiService {
     getApplicationHistory(): Observable<ApplicationHistoryResponse[]> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.get<ApplicationHistoryResponse[]>(this.historyUrl);;
+    }
+
+    signApp(id:string): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.post(`${this.signUrl}/${id}`, {}, { headers: headers });
     }
 }
 
