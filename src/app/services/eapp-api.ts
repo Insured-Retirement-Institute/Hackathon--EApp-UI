@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { ApiEAppModel } from '../components/questionnaire/questionnaire.component';
 
 @Injectable({
     providedIn: 'root'
@@ -17,9 +18,9 @@ export class EAppApiService {
         return this.http.get<TemplateBase[]>(this.getTemplatesUrl);
     }
 
-    getTemplate(templateId: string): Observable<any> {
+    getTemplate(templateId: string): Observable<ApiEAppModel> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.get<any>(`${this.getTemplateUrl}/${templateId}`);
+        return this.http.get<ApiEAppModel>(`${this.getTemplateUrl}/${templateId}`);
     }
 
     getApplicationHistory(): Observable<any> {
@@ -29,6 +30,11 @@ export class EAppApiService {
     submitApplication(application: Application): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<ApplicatonResponse>(this.submitAppUrl, application, { headers: headers });
+    }
+
+    getApplication(id: string): Observable<ApiEAppModel> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get<ApiEAppModel>(this.submitAppUrl);;
     }
 }
 

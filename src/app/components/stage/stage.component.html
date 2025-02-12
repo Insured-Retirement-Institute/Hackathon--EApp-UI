@@ -1,17 +1,11 @@
 @if(stage && form) {
 <section class="flex flex-col w-full gap-40 p-40 mx-auto max-w-840" @fadeIn>
     <h1 class="text-xl font-display">{{stage.title}}</h1>
-    <p>{{stage.order}}</p>
     <form [formGroup]="form">
         <div formArrayName="dataItems" class="flex flex-col gap-30">
             @for (item of stage.dataItems; track $index) {
             <div [formGroupName]="$index" class="flex flex-col gap-10">
                 <p class="" @fadeIn>{{item.displayLabel}}</p>
-                @if(isGrouped(item.dataItemId)) {
-                    <div class="flex flex-wrap gap-10">
-                        
-                    </div>
-                }
                 @switch (item.dataType) {
                 @case(dataTypeEnum.radio) {
                 <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20" @fadeIn>

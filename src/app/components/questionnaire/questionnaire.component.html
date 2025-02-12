@@ -24,14 +24,9 @@
         </div>
     </section>
     <section class="flex flex-col flex-grow overflow-hidden">
-        @if (showAll) {
-        <app-submission class="flex-grow overflow-y-auto"></app-submission>
-        }
-        @else {
         <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
         <div class="px-20 pt-20 text-base font-display">Step {{currentStageIndex + 1}}/{{apiEApp.stages.length}}</div>
         <app-stage [stage]="activeStage" [form]="activeForm" class="flex-grow overflow-y-auto"></app-stage>
-        }
         <div class="flex items-center justify-end gap-10 border-t border-gray-700 border-solid p-30">
             <button mat-button type="button" class="" (click)="goBack()">Prev</button>
             <button mat-flat-button type="button" class="" (click)="goNext()">Next</button>
@@ -41,5 +36,5 @@
     </section>
 </section>
 } @else {
-    
+    <p>loading</p>
 }

@@ -1,4 +1,4 @@
-<section class="flex-none px-20 py-10 overflow-hidden bg-zinc-800">
+<section class="flex-none px-20 overflow-hidden bg-zinc-800">
   <ul class="flex items-center gap-10">
     <li class="p-10">
       <a [routerLink]="['/home']" routerLinkActive="text-blue-500"
@@ -9,8 +9,12 @@
         class="text-base tracking-wider font-display">Applications</a>
     </li>
     <li class="p-10">
-      <a [routerLink]="['/questionnaire/abcd1234/new']" [queryParams]="queryParams" routerLinkActive="text-blue-500"
+      <a [routerLink]="['/questionnaire/abcd1234/new']"  routerLinkActive="text-blue-500"
         class="text-base tracking-wider font-display">Workflow</a>
+    </li>
+    <li class="p-10">
+      <a [routerLink]="['/submission']" routerLinkActive="text-blue-500"
+        class="text-base tracking-wider font-display">Allocation</a>
     </li>
   </ul>
 </section>

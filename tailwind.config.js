@@ -99,6 +99,12 @@ const fontSize = {
         display: ['Bebas Neue', 'Open Sans', 'sans-serif'],
         body: ['Roboto', 'sans-serif'],
       },
-      fontSize: fontSize
+      fontSize: fontSize,
+      borderRadius: {
+        sm: '4px',
+        md: '8px',
+        lg: '16px',
+        full: '90000px'
+      }
     },
   }

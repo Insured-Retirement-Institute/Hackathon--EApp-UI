@@ -41,8 +41,28 @@ export class PricingApiService {
         }
         return {
             requestorName: 'Valued Client',
-            allocations: allocations
+            allocations: allocations,
+            reason: "You're dumb and need help",
         }
+    }
+
+    example:PricingRequestModel = {
+        requestorName: 'Valued Client',
+        allocations: [
+            {
+                assetClass: 'Stock',
+                assetId: 'MSFT',
+                assetDisplayName: "Microsoft",
+                allocationPercentage: 70
+            },
+            {
+                assetClass: 'Stock',
+                assetId: 'FIG',
+                assetDisplayName: "FIG",
+                allocationPercentage: 30
+            }
+        ],
+        reason: "You're dumb and need help"
     }
 
     getPricing(pricingRequest: PricingRequestModel): Observable<PricingResponseModel> {
@@ -86,11 +106,13 @@ export interface Fund {
 export interface PricingRequestModel {
     requestorName: string,
     allocations: Allocation[],
+    reason: string
 }
 
 export interface Allocation {
     assetClass: string,
     assetId: string,
+    assetDisplayName: string,
     allocationPercentage: number,
     }
 
