@@ -11,6 +11,8 @@ export class EAppApiService {
     private getTemplatesUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/templates';
     private getTemplateUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/template';
     private submitAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/submit';
+    private historyUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application/history';
+    private getAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application';
     public currentApp?:ApiEAppModel;
     constructor(private http: HttpClient) {}
 
@@ -24,10 +26,6 @@ export class EAppApiService {
         return this.http.get<ApiEAppModel>(`${this.getTemplateUrl}/${templateId}`);
     }
 
-    getApplicationHistory(): Observable<any> {
-        return this.http.get<ApplicationHistoryResponse[]>(this.baseUrl + '/history');
-    }
-
     submitApplication(application: ApiEAppModel): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this.http.post<ApplicatonResponse>(this.submitAppUrl, application, { headers: headers });
@@ -35,16 +33,22 @@ export class EAppApiService {
 
     getApplication(id: string): Observable<ApiEAppModel> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this.http.get<ApiEAppModel>(this.submitAppUrl);;
+        return this.http.get<ApiEAppModel>(this.getAppUrl + `/${id}`);;
+    }
+
+    getApplicationHistory(): Observable<ApplicationHistoryResponse[]> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this.http.get<ApplicationHistoryResponse[]>(this.historyUrl);;
     }
 }
 
 export interface ApplicationHistoryResponse{
-    id: string,
+    applicationId: string,
     templateId: string,
     firstName: string,
     lastName: string,
-    duration: number,
+    duration: string,
+    submittedDate: Date,
 }
 
 export interface ApplicatonResponse {

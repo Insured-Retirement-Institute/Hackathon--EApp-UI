@@ -39,7 +39,7 @@ export class QuestionnaireComponent implements OnInit {
     private recommendationApi: RecommendationApiService
   ) { }
   animationOptions: AnimationOptions = {
-    path: 'src/app/assets/loading.json'
+    path: '../assets/loading.json'
   }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
@@ -97,7 +97,7 @@ export class QuestionnaireComponent implements OnInit {
           displayLabel: new FormControl(dataItem.displayLabel, { nonNullable: true }),
           parentDataItemId: new FormControl({ value: dataItem.parentDataItemId, disabled: true }, { nonNullable: true }),
           parentDataItemRequiredOption: new FormControl({ value: dataItem.parentDataItemRequiredOption, disabled: true }, { nonNullable: true }),
-          selectedValue: new FormControl('', { nonNullable: true })
+          selectedValue: new FormControl(dataItem.selectedValue ?? '', { nonNullable: true })
         });
         if (dataItem.parentDataItemId) {
           group.controls.parentDataItemId.enable();
