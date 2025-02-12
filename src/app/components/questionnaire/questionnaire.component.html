@@ -25,16 +25,31 @@
     </section>
     <section class="flex flex-col flex-grow overflow-hidden">
         <mat-progress-bar mode="determinate" [value]="progress"></mat-progress-bar>
-        <div class="px-20 pt-20 text-base font-display">Step {{currentStageIndex + 1}}/{{apiEApp.stages.length}}</div>
+        <div class="pt-20 text-base px-30 font-display">Step {{currentStageIndex + 1}}/{{apiEApp.stages.length}}</div>
         <app-stage [stage]="activeStage" [form]="activeForm" class="flex-grow overflow-y-auto"></app-stage>
         <div class="flex items-center justify-end gap-10 border-t border-gray-700 border-solid p-30">
-            <button mat-button type="button" class="" (click)="goBack()">Prev</button>
-            <button mat-flat-button type="button" class="" (click)="goNext()">Next</button>
-            <button mat-flat-button type="submit" class="" (click)="showAllocation()">Allocate</button>
-            <button mat-flat-button type="submit" class="" (click)="submit()">Submit</button>
+            <button mat-button type="button" class="" (click)="goBack()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon>arrow_back</mat-icon>
+                    Previous
+                </span>
+            </button>
+            <button mat-button type="button" class="" (click)="goNext()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    Next
+                    <mat-icon>arrow_forward</mat-icon>
+                </span>
+            </button>
+            <span class="w-px h-full mx-10 bg-gray-700"></span>
+            <button mat-flat-button color="accent" type="submit" class="" (click)="submit()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    Shop
+                    <mat-icon>send</mat-icon>
+                </span>
+            </button>
         </div>
     </section>
 </section>
 } @else {
-    <p>loading</p>
+<p>loading</p>
 }

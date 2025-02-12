@@ -3,14 +3,15 @@ import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Reacti
 import { MatLabel, MatSelectModule } from '@angular/material/select';
 import { StageComponent } from "../stage/stage.component";
 import { OrderModule } from 'ngx-order-pipe';
-import { MatButton } from '@angular/material/button';
+import { MatButton, MatFabButton } from '@angular/material/button';
 import { RecommendationApiService } from '../../services/recommendation-api';
 import { CommonModule } from '@angular/common';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
-
+import { MatIcon } from '@angular/material/icon';
+import { DotLottie } from '@lottiefiles/dotlottie-web';
 @Component({
   selector: 'app-questionnaire',
   imports: [
@@ -21,6 +22,7 @@ import { EAppApiService } from '../../services/eapp-api';
     CommonModule,
     MatProgressBarModule,
     RouterModule,
+    MatIcon,
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',

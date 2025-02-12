@@ -46,6 +46,7 @@ html {
     --mat-sys-body-small-size: @apply text-sm;
     --mat-sys-body-medium-size: @apply text-base;
     --mat-sys-body-large-size: @apply text-large;
+    --mat-sys-label-large-size: @apply text-large;
 }
 @layer components {
     :root {
@@ -54,7 +55,8 @@ html {
                 filled-label-text-size: var(--mat-sys-body-medium),
                 outlined-label-text-size: var(--mat-sys-body-mediumn),
                 protected-label-text-size: var(--mat-sys-body-medium),
-                text-label-text-size: var(--mat-sys-body-medium)
+                text-label-text-size: var(--mat-sys-body-medium),
+   
             )
         );
     }
@@ -71,11 +73,11 @@ html {
 
 @layer components {
     .input {
-        @apply transition focus:ring-blue-300 outline-none h-40 px-10 py-10 border border-solid rounded-lg border-zinc-700 ring-0 focus:ring-0 bg-zinc-900;
+        @apply max-w-300 transition focus:ring-blue-300 outline-none h-40 px-10 py-10 border border-solid rounded-sm border-zinc-700 ring-0 focus:ring-0 bg-zinc-900;
     }
 
     .textarea {
-        @apply outline-none min-h-40 px-10 py-10 border border-solid rounded-lg border-zinc-700 ring-0 focus:ring-0 bg-zinc-900
+        @apply max-w-300 outline-none min-h-40 px-10 py-10 border border-solid rounded-sm border-zinc-700 ring-0 focus:ring-0 bg-zinc-900
     }
 }
 .mat-mdc-select-trigger {
