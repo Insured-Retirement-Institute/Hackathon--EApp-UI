@@ -3,7 +3,7 @@
       <h2 class="text-3xl font-display">Protect Your Retirement</h2>
       <p class="mt-4 text-lg text-gray-300">Take advantage of asset protection and lifetime income</p>
       @for (template of templates; track template.id) {
-        <button class="px-6 py-3 mt-6 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600" [routerLink]="['/questionnaire', template.id, 'new']" routerLinkActive="router-link-active" >{{template.name}}</button>
+        <button class="px-6 py-3 mt-6 font-bold text-white bg-blue-500 rounded-lg hover:bg-blue-600" [routerLink]="['/questionnaire', template.id, 'new']" routerLinkActive="router-link-active" >{{displayNameDict[template.name]}}</button>
 
       }
   </main>
