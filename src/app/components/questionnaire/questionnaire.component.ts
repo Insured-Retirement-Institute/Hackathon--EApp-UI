@@ -12,6 +12,7 @@ import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
 import { MatIcon } from '@angular/material/icon';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
+import { fadeIn } from '../../services/animations';
 
 @Component({
   selector: 'app-questionnaire',
@@ -26,6 +27,9 @@ import { LottieComponent, AnimationOptions } from 'ngx-lottie';
     MatIcon,
     LottieComponent
   ],
+  animations: [
+    fadeIn
+  ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',
   changeDetection: ChangeDetectionStrategy.Default,
@@ -39,7 +43,7 @@ export class QuestionnaireComponent implements OnInit {
     private recommendationApi: RecommendationApiService
   ) { }
   animationOptions: AnimationOptions = {
-    path: 'src/app/assets/loading.json'
+    path: 'loading.json'
   }
   fb = inject(FormBuilder)
   apiEApp: ApiEAppModel|null = null;
@@ -70,6 +74,10 @@ export class QuestionnaireComponent implements OnInit {
     } else {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
+        this.apiEApp.status = 'Pending';
+        this.apiEApp.id = crypto.randomUUID();
+        this.apiEApp.templateid = templateId;
+        this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
         this.initializeForm();
@@ -97,7 +105,7 @@ export class QuestionnaireComponent implements OnInit {
           displayLabel: new FormControl(dataItem.displayLabel, { nonNullable: true }),
           parentDataItemId: new FormControl({ value: dataItem.parentDataItemId, disabled: true }, { nonNullable: true }),
           parentDataItemRequiredOption: new FormControl({ value: dataItem.parentDataItemRequiredOption, disabled: true }, { nonNullable: true }),
-          selectedValue: new FormControl('', { nonNullable: true })
+          selectedValue: new FormControl(dataItem.selectedValue ?? '', { nonNullable: true })
         });
         if (dataItem.parentDataItemId) {
           group.controls.parentDataItemId.enable();
@@ -183,6 +191,7 @@ export class QuestionnaireComponent implements OnInit {
         })
       }
     }));
+    this.eAppApi.currentApp = this.apiEApp!;
     this.recommendationApi.getRecommendations(data)
     .subscribe((response) => {
       this.recommendationApi.currentRecommendation = response;
@@ -214,7 +223,10 @@ export enum DataTypeEnum {
 
 export interface ApiEAppModel {
   id: string,
+  templateid: string,
+  status: string,
   callbackUrl: string,
+  name: string;
   stages: Stage[],
 };
 

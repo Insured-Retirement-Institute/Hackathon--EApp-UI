@@ -1,12 +1,13 @@
-<section class="relative flex flex-col flex-grow overflow-hidden gap-y-20 py-30">
+<section class="relative flex flex-col flex-grow overflow-hidden gap-y-20 py-30" @fadeIn>
   <h2 class="z-10 w-full mx-auto text-xl font-display max-w-960">Pending Applications</h2>
-  <section class="z-10 flex flex-col flex-grow w-full mx-auto border border-gray-700 border-solid rounded-lg shadow-sm max-w-960 bg-zinc-900">
+  <section
+    class="z-10 flex flex-col flex-grow w-full mx-auto border border-gray-700 border-solid rounded-lg shadow-sm max-w-960 bg-zinc-900">
     <section class="flex p-20">
       <input type="text" placeholder="Find an application..." class="mr-auto input">
       <button mat-button>
         <span class="flex items-center justify-center w-full gap-5">
-          Filters
-          <mat-icon class="text-lg">tune</mat-icon>
+          <span>Filters</span>
+          <mat-icon class="">tune</mat-icon>
         </span>
       </button>
     </section>
@@ -23,8 +24,11 @@
         <tbody>
           @for (application of applications; track $index) {
           <tr class="transition duration-150 group">
-            <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-l-md bg-zinc-800">{{ application.firstName }} {{application.lastName }}</td>
-            <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 bg-zinc-800">{{ application.duration }} Year(s)</td>
+            <td
+              class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-l-md bg-zinc-800">
+              {{ application.firstName }} {{application.lastName }}</td>
+            <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 bg-zinc-800">{{
+              application.duration }} Year(s)</td>
             <td class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 bg-zinc-800">
               <span class="px-10 py-5 text-xs uppercase rounded-full bg-opacity-30" [ngClass]="{
                   'bg-blue-500': application.status === 'Pending',
@@ -34,10 +38,10 @@
               </span>
             </td>
             <td class="justify-end px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-r-md bg-zinc-800 text-end">
-              <button mat-button (click)="continueApplication(application.templateId, application.id)">
+              <button mat-button (click)="continueApplication(application.templateId, application.applicationId)">
                 <span class="flex items-center justify-center w-full gap-5">
-                  {{application.status === 'Pending' ? 'Continue' : 'View'}}
-                  <mat-icon class="text-lg">arrow_forward</mat-icon>
+                  <span>{{application.status === 'Pending' ? 'Continue' : 'View'}}</span>
+                  <mat-icon class="">arrow_forward</mat-icon>
                 </span>
               </button>
             </td>

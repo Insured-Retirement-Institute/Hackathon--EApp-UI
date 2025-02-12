@@ -1,13 +1,14 @@
-<section class="flex flex-grow gap-40 overflow-hidden bg-gradient-to-tr from-indigo-950 via-zinc-900 to-zinc-900 p-30">
+<section @fadeIn
+    class="flex items-start flex-grow gap-40 overflow-hidden bg-gradient-to-tr from-indigo-950 via-zinc-900 to-zinc-900 p-30">
     <section
-        class="flex flex-col overflow-hidden border border-solid rounded-lg shadow-xl bg-zinc-900 w-460 border-zinc-700">
+        class="flex flex-col h-full overflow-hidden border border-solid rounded-lg shadow-xl bg-zinc-900 w-460 border-zinc-700">
         <div class="flex flex-col p-20">
             <h1 class="text-xl font-display">Recommendation Results</h1>
             <p class="text-xs text-gray-400">{{recommendedAllocation?.requestorName}}</p>
             <p class="mt-20 text-sm">{{recommendedAllocation?.reason ?? "Here is your custom allocation based on your investor portfolio, specific goals and foundational values."}}</p>
         </div>
         <span class="h-px mx-20 bg-gray-700"></span>
-        <ul class="flex flex-col gap-10 p-20 overflow-auto">
+        <ul class="flex flex-col gap-10 p-20 overflow-auto" [@fadeIn]="recommendedAllocation?.allocations?.length">
             @for (item of recommendedAllocation?.allocations; track $index) {
             <li
                 class="flex gap-10 px-20 py-10 transition duration-150 rounded-md bg-zinc-800 opacity-80 hover:opacity-100">
@@ -15,32 +16,78 @@
                     <p class="text-sm font-semibold">{{item.assetDisplayName}}</p>
                     <p class="text-gray-400 text-2xs">{{item.assetId}}</p>
                 </div>
-                <div class="flex items-center gap-10 ml-auto">
+                <div class="flex items-center gap-20 ml-auto">
                     <span class="text-2xl font-display">{{item.allocationPercentage}}%</span>
                     <span
-                        class="px-10 py-5 text-xs text-gray-400 bg-green-500 rounded-full bg-opacity-20">{{item.assetClass}}</span>
+                        class="px-10 py-5 text-xs text-center text-gray-400 bg-green-500 rounded-full min-w-96 bg-opacity-20">{{item.assetClass}}</span>
                 </div>
             </li>
             }
         </ul>
     </section>
-    <section class="grid flex-grow grid-cols-3 gap-20">
-        @for (item of carriers; track $index) {
-        <div class="relative flex flex-col p-20 transition duration-150 border-0 rounded-lg bg-zinc-800 h-256" [ngClass]="{'border-2 border-solid border-blue-500': item.checked}">
-            <input type="checkbox" class="absolute inset-0 opacity-0" [(ngModel)]="item.checked" (ngModelChange)="updateCarrierList(item)">
-            <h2 class="text-xl font-display">{{item.name}}</h2>
-            <h3 class="text-lg font-display">Rating: {{item.rating}}</h3>
-        @if (pricingByCarrier[item.id]) {
-            @for (funds of pricingByCarrier[item.id].funds; track $index) {
-                <div class = "flex flex-row gap-10">
-                    <p class="font-display italic">{{funds.fundName.includes('CAP') ? "Cap Rate" : "Par Rate"}}:</p>
-                    <p class="font-display">{{funds.rate}}</p>
-                </div>
-            }
-        }
+    <section class="flex flex-col flex-grow h-full gap-30">
+        <div class="flex items-center gap-20">
+            <div class="mr-auto">
+                <h1 class="text-xl font-display">Carrier Gallery</h1>
+                <p>Select the carrier you would like to shop with below:</p>
+            </div>
+            <button mat-flat-button (click)="shop()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">shopping_bag</mat-icon>
+                    <span>Shop</span>
+                  </span>
+            </button>
         </div>
-        }
-        <button (click)="shop()">shop</button>
-        <button (click)="submitApp()">Submit App</button>
+        <section class="grid grid-cols-4 gap-20" [@fadeIn]="carriers.length">
+            @for (item of carriers; track $index) {
+            <div class="relative flex flex-col gap-20 overflow-hidden transition duration-150 border-solid rounded-lg bg-zinc-800"
+                [ngClass]="{'border-2 border-solid border-blue-500': item.checked, 'border border-gray-700': !item.checked}">
+                <span class="absolute top-0 left-0 flex m-10 transition-opacity duration-200 bg-green-500 rounded-full w-30 h-30 bg-opacity-30"
+                [ngClass]="{'opacity-100': item.checked, 'opacity-0' : !item.checked}">
+                  <mat-icon class="m-auto text-green-500">check_circle</mat-icon>
+                </span>
+                <input type="checkbox" class="absolute inset-0 opacity-0" [(ngModel)]="item.checked">
+                <div class="flex p-30 bg-zinc-900">
+                    <img [src]="item?.imgUrl" [alt]="" class="w-auto h-40 m-auto max-w-[16rem]">
+                </div>
+                <div class="flex flex-col items-center gap-5 p-20 mx-auto">
+                    <h2 class="text-2xl text-center font-display">{{item.name}}</h2>
+                    <span class="flex px-10 py-5 rounded-full bg-zinc-900">
+                        <span class="m-auto text-xs font-bold">Rating: {{item.rating}}</span>
+                    </span>
+                </div>
+                @if (pricingByCarrier[item.id]) {
+                    <div class="p-10">
+                        <div class="flex gap-20 p-10 bg-blue-800 rounded-md">
+                   
+                            @for (funds of pricingByCarrier[item.id].funds; track $index) {
+                            <div class="flex flex-col flex-grow px-20" [ngClass]="{'border-r border-solid border-blue-900': $index === 0}">
+                                <p class="text-xs text-gray-300">{{funds.fundName.includes('CAP') ? "Cap Rate" : "Par Rate"}}:</p>
+                                <p class="text-2xl font-display">{{funds.rate}}%</p>
+                            </div>
+                            }
+                    
+                        </div>
+                    </div>
+                }
+
+
+            </div>
+            }
+        </section>
+        <div class="flex justify-center gap-20 mt-auto col-span-full p-30">
+            <button mat-flat-button (click)="shop()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">shopping_bag</mat-icon>
+                    <span>Shop</span>
+                  </span>
+            </button>
+            <button class="min-w-200" mat-flat-button (click)="submitApp()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">send</mat-icon>
+                    <span>Submit Application</span>
+                  </span>
+            </button>
+        </div>
     </section>
 </section>

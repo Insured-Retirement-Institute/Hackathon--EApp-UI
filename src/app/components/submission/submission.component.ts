@@ -5,25 +5,32 @@ import { PricingModelMock } from '../../constants/allocation-mock.constant';
 import { FormsModule } from '@angular/forms';
 import { PricingApiService, PricingRequestModel, PricingResponseModel } from '../../services/pricing.api';
 import { EAppApiService } from '../../services/eapp-api';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { fadeIn } from '../../services/animations';
 
 @Component({
   selector: 'app-submission',
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    MatButtonModule,
+    MatIconModule
+  ],
+  animations: [
+    fadeIn
   ],
   templateUrl: './submission.component.html',
   styleUrl: './submission.component.scss'
 })
 export class SubmissionComponent implements OnInit {
   constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef,
-    private eappApi: EAppApiService)
- { }
-  recommendedAllocation?:PricingRequestModel;
+    private eappApi: EAppApiService) { }
+  recommendedAllocation?: PricingRequestModel;
   pricingByCarrier: Record<number, PricingResponseModel> = {};
-  
+
   ngOnInit(): void {
-    this.carriers.forEach(carrier => { if(carrier.id != 1) carrier.checked = false; }); //reset list
+    this.carriers.forEach(carrier => { if (carrier.id != 1) carrier.checked = false; }); //reset list
     this.recommendedAllocation = this.recApi.currentRecommendation ?? PricingModelMock;
     this.cd.markForCheck();
   }
@@ -41,70 +48,73 @@ export class SubmissionComponent implements OnInit {
         if (carrier.checked && carrier.id != 1) {
           let val = structuredClone(response);
           val?.funds.forEach(fund => {
-          fund.rate = fund.rate += .1
+            fund.rate = fund.rate += .1
           });
-        this.pricingByCarrier[carrier.id] = val!;
+          this.pricingByCarrier[carrier.id] = val!;
         }
       })
       this.cd.markForCheck();
-    });  
+    });
   }
 
   submitApp(): void {
     const form = this.eappApi.currentApp;
+    console.log(form);
     this.eappApi.submitApplication(form!).subscribe((response) => {
       alert('App submitted!');
       console.log(response);
     });
   }
 
-  carriers:CarrierModel[] = [
+  carriers: CarrierModel[] = [
     {
       id: 1,
-      name: 'AEL',
+      name: 'American Equity',
+      imgUrl: 'ael.svg',
       checked: true,
       rating: 'A'
     },
     {
       id: 2,
       name: 'Athene',
+      imgUrl: 'athene.svg',
       checked: false,
       rating: 'A+'
     },
     {
       id: 3,
       name: 'Jackson',
+      imgUrl: 'jackson.svg',
       checked: false,
       rating: 'A'
     },
     {
       id: 4,
       name: 'Prudential',
+      imgUrl: 'prudential.svg',
       checked: false,
       rating: 'A+'
     },
     {
       id: 5,
       name: 'Nationwide',
+      imgUrl: 'nationwide.svg',
       checked: false,
       rating: 'A+'
     },
     {
       id: 6,
       name: 'New York Life',
+      imgUrl: 'ny-life.svg',
       checked: false,
       rating: 'A++'
     }
   ];
-  selectedCarriers: CarrierModel[]= [];
-
-  updateCarrierList(item: CarrierModel): void {
-    this.selectedCarriers.push(item);
-  }
 }
 
 export interface CarrierModel {
   id: number;
+  imgUrl?: string;
   name: string;
   checked: boolean;
   rating: string;
