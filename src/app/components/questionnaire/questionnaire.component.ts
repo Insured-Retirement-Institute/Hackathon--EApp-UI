@@ -77,27 +77,12 @@ export class QuestionnaireComponent implements OnInit {
           group.updateValueAndValidity();
         }
         (stageGroup.get('dataItems') as FormArray<FormGroup<DataItemForm>>).push(group);
-        this.updateQueryParams(this.currentStageIndex);
       });
 
       this.stages.push(stageGroup);
     });
     this.activeStage = this.apiEApp.stages.at(0);
     this.activeForm = this.getFirstForm();
-  }
-
-  updateQueryParams(index?: number) {
-    this.activatedRoute.queryParams.subscribe({
-      next: (params: QuestionnaireParams) => {
-        let queryParams: QuestionnaireParams = {};
-        queryParams.stage = index || 0;
-        this.router.navigate(
-          ['/questionnaire'],
-          { queryParams: queryParams }
-        );
-      }
-    })
-
   }
 
   getFirstForm(): FormGroup<StageForm> | undefined {
@@ -144,15 +129,13 @@ export class QuestionnaireComponent implements OnInit {
     this.activeForm = this.getNextStageForm();
     this.activeStage = this.getNextStageObj();
     this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
-    this.updateQueryParams(this.currentStageIndex);
   }
 
 
   goBack(): void {
     this.activeForm = this.getPrevStageForm();
     this.activeStage = this.getPrevStageObj();
-    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
-    this.updateQueryParams(this.currentStageIndex);
+    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;;
   }
 
   goToStep(stepIndex: number) {
@@ -160,7 +143,6 @@ export class QuestionnaireComponent implements OnInit {
     this.activeForm = this.stages.at(this.currentStageIndex);
     this.activeStage = this.apiEApp.stages.at(this.currentStageIndex);
     this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
-    this.updateQueryParams(this.currentStageIndex);
   }
 
   submit(): void {
