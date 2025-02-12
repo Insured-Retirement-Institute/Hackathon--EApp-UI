@@ -6,12 +6,16 @@ import { RecommendationApiService } from '../../services/recommendation-api';
 import { EAppApiService, TemplateBase } from '../../services/eapp-api';
 import { PricingApiService, PricingRequestModel } from '../../services/pricing.api';
 import { RouterModule } from '@angular/router';
+import { fadeIn } from '../../services/animations';
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
     RouterModule
+  ],
+  animations: [
+    fadeIn
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
