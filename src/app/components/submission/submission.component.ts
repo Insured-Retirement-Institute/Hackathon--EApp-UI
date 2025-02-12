@@ -76,7 +76,7 @@ export class SubmissionComponent implements OnInit {
       id: 4,
       name: 'Prudential',
       checked: false,
-      rating: 'A='
+      rating: 'A+'
     },
     {
       id: 5,
