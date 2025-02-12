@@ -7,6 +7,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { fadeIn } from '../../services/animations';
+import { PlaidLinkComponent } from '../plaid-link/plaid-link.component';
+
 
 @Component({
   selector: 'app-stage',
@@ -17,8 +19,9 @@ import { fadeIn } from '../../services/animations';
     MatSelectModule,
     MatOptionModule,
     CommonModule,
-    MatDatepickerModule
-  ],
+    MatDatepickerModule,
+    PlaidLinkComponent
+],
   animations: [fadeIn],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss'
