@@ -3,7 +3,7 @@ import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import { RecommendationApiService } from '../../services/recommendation-api';
-import { TemplateApiService } from '../../services/template-api';
+import { EAppApiService } from '../../services/eapp-api';
 import { PricingApiService, PricingRequestModel } from '../../services/pricing.api';
 import { RouterModule } from '@angular/router';
 
@@ -19,7 +19,7 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit { 
 
 
-  constructor(private recommendationsService: RecommendationApiService, private templateApiService:TemplateApiService,
+  constructor(private recommendationsService: RecommendationApiService, private templateApiService:EAppApiService,
     private pricingService: PricingApiService
   ) { }
   ngOnInit(): void {

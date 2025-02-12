@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PortfolioModel } from './recommendation-api';
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +10,40 @@ export class PricingApiService {
     private apiUrl = 'https://55mfvx4nfh.us-west-2.awsapprunner.com/pricing';
 
     constructor(private http: HttpClient) {}
+ 
+    transform(data: PortfolioModel): PricingRequestModel {
+        // postman example
+         // var fakePricing:PricingRequestModel = {
+    //   requestorName: "Jake Galligan",
+    //   allocations: [{
+    //     assetClass: "Stock",
+    //     assetId: "MSFT",
+    //     allocationPercentage: 70
+    //   },
+    //   {
+    //     assetClass: "Stock",
+    //     assetId: "FIG",
+    //     allocationPercentage: 30
+    //   }]
+    // } 
+        let allocations: Allocation[] = [];
+        let keys = Object.keys(data.portfolio_allocation);
+        for (let key in keys) {
+            let weight = data.portfolio_allocation[key].weight;
+            const assets = data.portfolio_allocation[key].securities.map(security => {
+                return {
+                    assetClass: 'Stock',
+                    assetId: security.symbol,
+                    allocationPercentage: security.allocation
+                } as Allocation;
+            allocations.concat(assets);
+            })
+        }
+        return {
+            requestorName: 'Valued Client',
+            allocations: allocations
+        }
+    }
 
     getPricing(pricingRequest: PricingRequestModel): Observable<PricingResponseModel> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -25,7 +60,7 @@ export interface PricingResponseModel {
 
 export interface Fund {
     fundName: string,
-    rateType: number,
+    rateType: number, // what is this??
     rate: number
 }
 
