@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatButton } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
@@ -20,12 +20,13 @@ export class HomeComponent implements OnInit {
   templates:TemplateBase[] = [];
 
   constructor(private recommendationsService: RecommendationApiService, private templateApiService:EAppApiService,
-    private pricingService: PricingApiService
+    private pricingService: PricingApiService, private cd: ChangeDetectorRef
   ) { }
   ngOnInit(): void {
     this.templateApiService.getTemplates().subscribe((response) => {
       console.log(response);
       this.templates = response;
+      this.cd.markForCheck();
     });
     // this.recommendationsService.getRecommendations('jj').subscribe((response) => {
     //   console.log(response);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatLabel, MatSelectModule } from '@angular/material/select';
 import { StageComponent } from "../stage/stage.component";
@@ -33,17 +33,18 @@ export class QuestionnaireComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private eAppApi: EAppApiService,
+    private cd: ChangeDetectorRef
   ) { }
   fb = inject(FormBuilder)
-  apiEApp = ApiEAppV2;
+  apiEApp: ApiEAppModel|null = null;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({
     stages: this.fb.array<FormGroup<StageForm>>([])
   });
   currentStageIndex = 0;
-  activeStage: Stage | undefined = this.apiEApp.stages[0];
+  activeStage: Stage | undefined = undefined;
   activeForm: FormGroup<StageForm> | undefined = undefined;
   showAll = false;
-  progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
+  progress = 0;
   get stages(): FormArray<FormGroup<StageForm>> {
     return this.mainForm.get('stages') as FormArray<FormGroup<StageForm>>;
   }
@@ -52,8 +53,11 @@ export class QuestionnaireComponent implements OnInit {
     const templateId = this.activatedRoute.snapshot.paramMap.get('templateId') as string;
     this.eAppApi.getTemplate(templateId).subscribe((response) => {
       this.apiEApp = response;
+      this.activeStage = this.apiEApp.stages[0];
+      this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
+      this.initializeForm();
+      this.cd.markForCheck();
     });
-    this.initializeForm();
   }
 
   showAllocation() {
@@ -61,7 +65,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   initializeForm(): void {
-    this.apiEApp.stages.forEach(stage => {
+    this.apiEApp?.stages.forEach(stage => {
       const stageGroup = this.fb.group<StageForm>({
         title: new FormControl(stage.title, { nonNullable: true }),
         dataItems: this.fb.array<FormGroup<DataItemForm>>([])
@@ -87,7 +91,7 @@ export class QuestionnaireComponent implements OnInit {
 
       this.stages.push(stageGroup);
     });
-    this.activeStage = this.apiEApp.stages.at(0);
+    this.activeStage = this.apiEApp?.stages.at(0);
     this.activeForm = this.getFirstForm();
   }
 
@@ -105,7 +109,7 @@ export class QuestionnaireComponent implements OnInit {
 
   getNextStageObj(): Stage | undefined {
     if (this.currentStageIndex <= this.stages.length - 1) {
-      return this.apiEApp.stages.at(this.currentStageIndex);
+      return this.apiEApp?.stages.at(this.currentStageIndex);
     }
     return undefined;
   }
@@ -123,10 +127,10 @@ export class QuestionnaireComponent implements OnInit {
 
   getPrevStageObj(): Stage | undefined {
     if (this.currentStageIndex === 0) {
-      return this.apiEApp.stages.at(0);
+      return this.apiEApp?.stages.at(0);
     };
     if (this.currentStageIndex <= this.stages.length - 1) {
-      return this.apiEApp.stages.at(this.currentStageIndex);
+      return this.apiEApp?.stages.at(this.currentStageIndex);
     }
     return undefined;
   }
@@ -134,26 +138,26 @@ export class QuestionnaireComponent implements OnInit {
   goNext(): void {
     this.activeForm = this.getNextStageForm();
     this.activeStage = this.getNextStageObj();
-    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
+    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp!.stages.length;
   }
 
 
   goBack(): void {
     this.activeForm = this.getPrevStageForm();
     this.activeStage = this.getPrevStageObj();
-    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;;
+    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp!.stages.length;;
   }
 
   goToStep(stepIndex: number) {
     this.currentStageIndex = stepIndex;
     this.activeForm = this.stages.at(this.currentStageIndex);
-    this.activeStage = this.apiEApp.stages.at(this.currentStageIndex);
-    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp.stages.length;
+    this.activeStage = this.apiEApp!.stages.at(this.currentStageIndex);
+    this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp!.stages.length;
   }
 
   submit(): void {
     let postModel: PostModel = {
-      id: this.apiEApp.id,
+      id: this.apiEApp!.id,
       dataItems: []
     };
     this.mainForm.value.stages?.forEach(s => s.dataItems?.forEach(d => {
