@@ -31,7 +31,12 @@
                 <h1 class="text-xl font-display">Carrier Gallery</h1>
                 <p>Select the carrier you would like to shop with below:</p>
             </div>
-            <button mat-flat-button (click)="shop()">Shop</button>
+            <button mat-flat-button (click)="shop()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">shopping_bag</mat-icon>
+                    <span>Shop</span>
+                  </span>
+            </button>
         </div>
         <section class="grid grid-cols-4 gap-20">
             @for (item of carriers; track $index) {
@@ -71,8 +76,18 @@
             }
         </section>
         <div class="flex justify-center gap-20 mt-auto col-span-full p-30">
-            <button mat-flat-button (click)="shop()">Shop</button>
-            <button class="w-200" mat-flat-button (click)="submitApp()">Submit Application</button>
+            <button mat-flat-button (click)="shop()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">shopping_bag</mat-icon>
+                    <span>Shop</span>
+                  </span>
+            </button>
+            <button class="min-w-200" mat-flat-button (click)="submitApp()">
+                <span class="flex items-center justify-center w-full gap-5">
+                    <mat-icon class="">send</mat-icon>
+                    <span>Submit Application</span>
+                  </span>
+            </button>
         </div>
     </section>
 </section>
