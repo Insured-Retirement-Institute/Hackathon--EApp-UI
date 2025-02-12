@@ -37,9 +37,8 @@
                 {{ application.status }}
               </span>
             </td>
-            <td
-              class="justify-end px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-r-md bg-zinc-800 text-end">
-              <button mat-button (click)="continueApplication(application.templateId, application.id)">
+            <td class="justify-end px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-r-md bg-zinc-800 text-end">
+              <button mat-button (click)="continueApplication(application.templateId, application.applicationId)">
                 <span class="flex items-center justify-center w-full gap-5">
                   <span>{{application.status === 'Pending' ? 'Continue' : 'View'}}</span>
                   <mat-icon class="">arrow_forward</mat-icon>

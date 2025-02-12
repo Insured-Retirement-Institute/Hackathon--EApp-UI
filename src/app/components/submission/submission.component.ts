@@ -59,6 +59,7 @@ export class SubmissionComponent implements OnInit {
 
   submitApp(): void {
     const form = this.eappApi.currentApp;
+    console.log(form);
     this.eappApi.submitApplication(form!).subscribe((response) => {
       alert('App submitted!');
       console.log(response);

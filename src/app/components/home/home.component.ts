@@ -19,6 +19,12 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent implements OnInit { 
   templates:TemplateBase[] = [];
+  displayNameDict:Record<string, string> = {
+    ["D2C"]: "Direct to Consumer",
+    ["FIA"] : "Fixed Indexed Annuity",
+    ["MYGA"]: "Multi-Year Guaranteed Annuity",
+    ["BDFIA"]: "Broker-Dealer Fixed Indexed Annuity",
+  }
 
   constructor(private recommendationsService: RecommendationApiService, private templateApiService:EAppApiService,
     private pricingService: PricingApiService, private cd: ChangeDetectorRef
