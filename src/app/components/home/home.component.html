@@ -9,7 +9,7 @@
         <div class="grid w-full grid-cols-2 gap-20">
             @for (template of templates; track template.id) {
             <button [routerLink]="['/questionnaire', template.id, 'new']"
-                class="flex flex-col col-span-1 gap-20 transition duration-150 bg-opacity-50 rounded-md p-30 bg-zinc-900 hover:bg-opacity-100 hover:bg-blue-950">
+                class="flex flex-col col-span-1 gap-20 transition duration-150 rounded-md p-30 bg-zinc-900 hover:bg-blue-500 bg-opacity-40 hover:bg-opacity-40">
                 <mat-icon class="mx-auto">military_tech</mat-icon>
                 <p class="mx-auto text-xl text-center font-display">{{displayNameDict[template.name]}}</p>
             </button>
@@ -19,19 +19,19 @@
 
     </main>
     <section id="features" class="mt-16 max-w-640">
-        <h3 class="text-3xl font-bold text-center">Features</h3>
-        <div class="grid grid-cols-1 gap-20 mt-20 md:grid-cols-3">
-            <div class="p-6 text-center bg-gray-800 rounded-lg">
+        <h3 class="text-2xl text-center font-display">Features</h3>
+        <div class="grid grid-cols-3 gap-20 mt-20 md:grid-cols-3">
+            <div class="p-20 text-center rounded-md bg-zinc-900">
                 <span class="mb-2 text-4xl material-icons">shield</span>
                 <h4 class="text-xl font-semibold">Protection</h4>
                 <p class="text-gray-400">Avoid asset loss.</p>
             </div>
-            <div class="p-6 text-center bg-gray-800 rounded-lg">
+            <div class="p-20 text-center rounded-md bg-zinc-900">
                 <span class="mb-2 text-4xl material-icons">show_chart</span>
                 <h4 class="text-xl font-semibold">Lifetime Income</h4>
                 <p class="text-gray-400">Guaranteed income for life.</p>
             </div>
-            <div class="p-6 text-center bg-gray-800 rounded-lg">
+            <div class="p-20 text-center rounded-md bg-zinc-900">
                 <span class="mb-2 text-4xl material-icons">palette</span>
                 <h4 class="text-xl font-semibold">Personalized</h4>
                 <p class="text-gray-400">Fully customized for you.</p>

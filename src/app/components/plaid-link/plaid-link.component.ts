@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import {
   NgxPlaidLinkModule,
@@ -13,7 +14,7 @@ import {
   selector: 'app-plaid-link',
   templateUrl: './plaid-link.component.html',
   styleUrls: ['./plaid-link.component.css'],
-  imports: [CommonModule, HttpClientModule, NgxPlaidLinkModule],
+  imports: [CommonModule, HttpClientModule, NgxPlaidLinkModule, MatButtonModule],
   standalone: true,
 })
 export class PlaidLinkComponent implements OnInit, AfterViewInit {

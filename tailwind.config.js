@@ -91,7 +91,6 @@ const fontSize = {
     content: [
       './src/**/*.{html, scss, css, ts, js}'
     ],
-    important: true,
     theme: {
       extend: {
         spacing: values,
