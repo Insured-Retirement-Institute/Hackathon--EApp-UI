@@ -10,7 +10,7 @@
         <span class="h-px mx-20 bg-gray-700"></span>
      @if(!loading && recommendedAllocation?.allocations?.length) {
         <ul class="flex flex-col gap-10 p-20 overflow-auto" [@fadeIn]="recommendedAllocation?.allocations?.length">
-            @for (item of recommendedAllocation?.allocations | groupBy: 'assetClass' ; track $index) {
+            @for (item of recommendedAllocation?.allocations; track $index) {
             <li
                 class="flex gap-10 px-20 py-10 transition duration-150 rounded-md bg-zinc-800 opacity-80 hover:opacity-100">
                 <div class="flex flex-col">
