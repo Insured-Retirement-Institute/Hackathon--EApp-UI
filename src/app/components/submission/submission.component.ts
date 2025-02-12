@@ -28,17 +28,24 @@ export class SubmissionComponent implements OnInit {
     private eappApi: EAppApiService) { }
   recommendedAllocation?: PricingRequestModel;
   pricingByCarrier: Record<number, PricingResponseModel> = {};
+  loading = true;
 
   ngOnInit(): void {
     this.carriers.forEach(carrier => { if (carrier.id != 1) carrier.checked = false; }); //reset list
-    this.recommendedAllocation = this.recApi.currentRecommendation ?? PricingModelMock;
-    this.cd.markForCheck();
+    this.recApi.getRecommendations(this.eappApi.currentAnswers)
+    .subscribe((response) => {
+      this.recApi.currentRecommendation = response;
+      this.recommendedAllocation = response;
+      this.loading = false;
+      this.cd.markForCheck();
+  });
   }
 
   shop(): void {
     const request = structuredClone(this.recommendedAllocation);
     request?.allocations.forEach(allocation => {
       allocation.assetClass = 'Stock'; // workaround for the fact that the API doesn't accept dynamic asset classes
+      allocation.allocationPercentage = Math.ceil(allocation.allocationPercentage);
     });
     request!.requestorName = "Andrew Barnett"; // maybe dynamic?
     this.pricingByCarrier = {};

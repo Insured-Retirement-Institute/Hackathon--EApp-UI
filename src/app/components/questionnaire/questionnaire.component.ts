@@ -54,6 +54,7 @@ export class QuestionnaireComponent implements OnInit {
   activeStage: Stage | undefined = undefined;
   activeForm: FormGroup<StageForm> | undefined = undefined;
   showAll = false;
+  questionAnswers: QuestionAnswer[] = [];
   progress = 0;
   get stages(): FormArray<FormGroup<StageForm>> {
     return this.mainForm.get('stages') as FormArray<FormGroup<StageForm>>;
@@ -76,7 +77,7 @@ export class QuestionnaireComponent implements OnInit {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
         this.apiEApp.status = 'Pending';
-        this.apiEApp.id = crypto.randomUUID();
+        this.apiEApp.id = '1b52135e-ef8b-40f0-a176-f7578aa416da'; // todo don't hardocde
         this.apiEApp.templateId = templateId;
         this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
@@ -195,11 +196,9 @@ export class QuestionnaireComponent implements OnInit {
         })
       }
     }));
+    this.eAppApi.currentAnswers = data;
     this.eAppApi.currentApp = this.apiEApp!;
-    this.recommendationApi.getRecommendations(data)
-    .subscribe((response) => {
-      this.recommendationApi.currentRecommendation = response;
-  });
+    this.router.navigate(['/submission']);
   }
 }
 

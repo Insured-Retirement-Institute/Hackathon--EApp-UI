@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { ApiEAppModel } from '../components/questionnaire/questionnaire.component';
+import { ApiEAppModel, QuestionAnswer } from '../components/questionnaire/questionnaire.component';
 
 @Injectable({
     providedIn: 'root'
@@ -15,6 +15,7 @@ export class EAppApiService {
     private getAppUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/application';
     private signUrl = 'https://8h9ti2mhrm.us-west-2.awsapprunner.com/sign';
     public currentApp?:ApiEAppModel;
+    public currentAnswers:QuestionAnswer[] = [];
     constructor(private http: HttpClient) {}
 
     getTemplates(): Observable<TemplateBase[]> {
