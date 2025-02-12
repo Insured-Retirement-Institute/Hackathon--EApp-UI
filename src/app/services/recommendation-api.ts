@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { PricingRequestModel } from './pricing.api';
+import { QuestionAnswer } from '../components/questionnaire/questionnaire.component';
 
 @Injectable({
     providedIn: 'root'
@@ -104,13 +106,14 @@ export class RecommendationApiService {
       };
     constructor(private http: HttpClient) {}
 
-    getRecommendations(prompt: string): Observable<PortfolioModel> {
+    getRecommendations(qa: QuestionAnswer[]): Observable<PricingRequestModel> {
         // TODO maybe direct to anthropic
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        const body = { messages: [{role: 'user', content:'convervative investor'} ]};
 
-        return this.http.post<PortfolioModel>(this.apiUrl, body, { headers: headers });
+        return this.http.post<PricingRequestModel>(this.apiUrl, qa, { headers: headers });
     }
+
+    currentRecommendation?:PricingRequestModel;
 }
 
 interface Security {
