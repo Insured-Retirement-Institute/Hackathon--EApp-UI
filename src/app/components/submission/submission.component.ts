@@ -36,6 +36,7 @@ export class SubmissionComponent implements OnInit {
     .subscribe((response) => {
       this.recApi.currentRecommendation = response;
       this.recommendedAllocation = response;
+      this.recommendedAllocation.allocations = this.recommendedAllocation.allocations.sort((a, b) => b.allocationPercentage - a.allocationPercentage);
       this.loading = false;
       this.cd.markForCheck();
   });
@@ -55,7 +56,7 @@ export class SubmissionComponent implements OnInit {
         if (carrier.checked && carrier.id != 1) {
           let val = structuredClone(response);
           val?.funds.forEach(fund => {
-            fund.rate = fund.rate += .1
+            fund.rate = fund.rate -= .5;
           });
           this.pricingByCarrier[carrier.id] = val!;
         }
