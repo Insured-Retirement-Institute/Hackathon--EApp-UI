@@ -77,7 +77,7 @@ export class SubmissionComponent implements OnInit {
             if (fund.fundName.includes("CAP")) {
               fund.rate = fund.rate -= .2;
             } else {
-              fund.rate = fund.rate -= 3;
+              fund.rate = fund.rate -= 3.1;
             }
           });
           this.pricingByCarrier[carrier.id] = val!;
