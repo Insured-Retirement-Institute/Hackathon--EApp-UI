@@ -36,7 +36,7 @@
         @for (item of hardcodedAllocations; track $index) {
         <div class="flex items-center gap-20 p-20 rounded-md bg-zinc-900">
             <p class="mr-auto">{{item.Name}}</p>
-            <input type="text" class="input" [(ngModel)]="item.Percentage" [value]="item.Percentage + '%'">
+            <input type="text" class="input" [(ngModel)]="item.Percentage" [value]="item.Percentage">
         </div>
         }
     </section>

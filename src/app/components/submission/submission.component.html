@@ -5,7 +5,7 @@
         <div class="flex flex-col p-20">
             <h1 class="text-xl font-display">Recommendation Results</h1>
             <p class="text-xs text-gray-400">{{recommendedAllocation?.requestorName}}</p>
-            <p class="mt-20 text-sm">{{recommendedAllocation?.reason ?? "Here is your custom allocation based on your investor portfolio, specific goals and foundational values."}}</p>
+            <p class="mt-20 text-sm">{{recommendedAllocation?.reason}}</p>
         </div>
         <span class="h-px mx-20 bg-gray-700"></span>
      @if(!loading && recommendedAllocation?.allocations?.length) {
