@@ -77,12 +77,10 @@ export class QuestionnaireComponent implements OnInit {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
         this.apiEApp.status = 'Pending';
-        this.apiEApp.id = '1b52135e-ef8b-40f0-a176-f7578aa416da'; // todo don't hardocde
+        this.apiEApp.id = this.generateUUID();
         this.apiEApp.templateId = templateId;
         this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
-        this.apiEApp.firstname = "Nina";
-        this.apiEApp.lastname = "Taylor";
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
         this.eAppApi.currentApp = this.apiEApp;
         this.initializeForm();
@@ -90,6 +88,15 @@ export class QuestionnaireComponent implements OnInit {
       });
     }
   }
+
+  generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 
   showAllocation() {
     this.showAll = !this.showAll;

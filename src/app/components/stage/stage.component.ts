@@ -33,6 +33,8 @@ export class StageComponent implements OnInit {
   ) {}
   @Input() stage?: Stage;
   @Input() form?: FormGroup<StageForm> | null;
+  showpreBuilt = false;
+  showCustom = false;
   dataTypeEnum = DataTypeEnum;
   ownerStages = [
     'owner information',

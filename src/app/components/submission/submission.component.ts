@@ -68,7 +68,6 @@ export class SubmissionComponent implements OnInit {
         if (carrier.checked && carrier.id != 1) {
           let val = structuredClone(response);
           val?.funds.forEach(fund => {
-            // 2 for participation
             if (fund.fundName.includes("CAP")) {
               fund.rate = fund.rate -= .2;
             } else {
