@@ -42,7 +42,7 @@ export const hardcodedAllocations: PreBuiltAllocation[] = [
         Percentage: 0
     },
     {
-        Name: 'S&P 500® Index, Annual Point to Point with Cap',
+        Name: 'S&P 500® Index, Monthly Point to Point with Cap',
         Percentage: 0
     },
 ]
