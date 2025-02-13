@@ -33,6 +33,8 @@ export class StageComponent implements OnInit {
   ) {}
   @Input() stage?: Stage;
   @Input() form?: FormGroup<StageForm> | null;
+  showpreBuilt = false;
+  showCustom = false;
   dataTypeEnum = DataTypeEnum;
   ownerStages = [
     'owner information',
@@ -61,6 +63,24 @@ export class StageComponent implements OnInit {
     }
     
     return false;
+  }
+
+  setPreBuilt(): void {
+    this.showCustom = false;
+    this.showpreBuilt = true
+    this.cd.detectChanges();
+  }
+
+  reset(): void {
+    this.showCustom = false;
+    this.showpreBuilt = false
+    this.cd.detectChanges();
+  }
+
+  setCustom(): void {
+    this.showpreBuilt = false;
+    this.showCustom = true
+    this.cd.detectChanges();
   }
 
   // get options(): FormArray<FormGroup<DataOptionForm>> {

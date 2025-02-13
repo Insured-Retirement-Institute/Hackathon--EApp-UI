@@ -43,6 +43,7 @@ export class SubmissionComponent implements OnInit {
     path: 'loading.json'
   };
   ngOnInit(): void {
+    console.log(this.eappApi.currentApp);
     this.carriers.forEach(carrier => { if (carrier.id != 1) carrier.checked = false; }); //reset list
     this.recApi.getRecommendations(this.eappApi.currentAnswers)
       .subscribe((response) => {
@@ -58,8 +59,13 @@ export class SubmissionComponent implements OnInit {
     const request = structuredClone(this.recommendedAllocation);
     request?.allocations.forEach(allocation => {
       allocation.assetClass = 'Stock'; // workaround for the fact that the API doesn't accept dynamic asset classes
-      allocation.allocationPercentage = Math.ceil(allocation.allocationPercentage);
+      allocation.allocationPercentage = Math.floor(allocation.allocationPercentage);
     });
+    const sum = request?.allocations.reduce((acc, val) => acc + val.allocationPercentage, 0);
+    console.log(sum);
+    const diff = 100 - sum!;
+    console.log(diff);
+    request!.allocations[0].allocationPercentage += diff;
     request!.requestorName = "Andrew Barnett"; // maybe dynamic?
     this.pricingByCarrier = {};
     this.pricingApi.getPricing(request!).subscribe((response) => {
@@ -68,7 +74,6 @@ export class SubmissionComponent implements OnInit {
         if (carrier.checked && carrier.id != 1) {
           let val = structuredClone(response);
           val?.funds.forEach(fund => {
-            // 2 for participation
             if (fund.fundName.includes("CAP")) {
               fund.rate = fund.rate -= .2;
             } else {

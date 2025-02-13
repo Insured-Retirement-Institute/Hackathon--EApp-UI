@@ -82,12 +82,10 @@ export class QuestionnaireComponent implements OnInit {
       this.eAppApi.getTemplate(templateId).subscribe((response) => {
         this.apiEApp = response;
         this.apiEApp.status = 'Pending';
-        this.apiEApp.id = '1b52135e-ef8b-40f0-a176-f7578aa416da'; // todo don't hardocde
+        this.apiEApp.id = this.generateUUID();
         this.apiEApp.templateId = templateId;
         this.apiEApp.name = 'Application' + this.apiEApp.id;
         this.activeStage = this.apiEApp.stages[0];
-        this.apiEApp.firstname = "Nina";
-        this.apiEApp.lastname = "Taylor";
         this.progress = ((this.currentStageIndex + 1) * 100) / this.apiEApp?.stages.length;
         this.eAppApi.currentApp = this.apiEApp;
         this.initializeForm();
@@ -95,6 +93,15 @@ export class QuestionnaireComponent implements OnInit {
       });
     }
   }
+
+  generateUUID() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        const r = Math.random() * 16 | 0;
+        const v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+    });
+}
+
 
   showAllocation() {
     this.showAll = !this.showAll;
@@ -195,6 +202,14 @@ export class QuestionnaireComponent implements OnInit {
     let data: QuestionAnswer[] = [];
     this.mainForm.value.stages?.forEach(s => s.dataItems?.forEach(d => {
       if (d.dataItemId && d.selectedValue) {
+
+        // try to append the values to the model
+        const match = this.apiEApp?.stages.find(stage => stage.title == s.title);
+        match?.dataItems.forEach(item => {
+          if (item.dataItemId == d.dataItemId) {
+            item.selectedValue = d.selectedValue ?? '';
+          }
+        })
         data.push({
           question: d.displayLabel ?? '',
           answer: d.selectedValue
@@ -202,7 +217,6 @@ export class QuestionnaireComponent implements OnInit {
       }
     }));
     this.eAppApi.currentAnswers = data;
-    this.eAppApi.currentApp = this.apiEApp!;
     this.router.navigate(['/submission']);
   }
 }
