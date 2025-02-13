@@ -6,7 +6,7 @@ import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { fadeIn } from '../../services/animations';
+import { fadeIn, listAnimation } from '../../services/animations';
 import { PlaidLinkComponent } from '../plaid-link/plaid-link.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -31,7 +31,7 @@ import { hardcodedAllocations } from './consts';
     MatChipsModule,
     FormsModule
   ],
-  animations: [fadeIn],
+  animations: [fadeIn, listAnimation],
   templateUrl: './stage.component.html',
   styleUrl: './stage.component.scss',
 })

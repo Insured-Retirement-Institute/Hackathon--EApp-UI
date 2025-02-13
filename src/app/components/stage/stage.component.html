@@ -44,9 +44,9 @@
     <!-- Base workflow -->
     @else {
     <form [formGroup]="form">
-        <div formArrayName="dataItems" class="flex flex-col gap-30">
+        <div formArrayName="dataItems" class="flex flex-col gap-30" [@listAnimation]>
             @if (isOwnerStage(stage.title)) {
-            <div class="grid items-end grid-cols-3 gap-x-20 gap-y-30">
+            <div class="grid items-end grid-cols-3 gap-x-20 gap-y-30" [@listAnimation]>
                 @for (item of stage.dataItems; track $index) {
                 @if (canShow(stage, item)) {
                 <div [formGroupName]="$index" class="flex flex-col col-span-1 gap-10"
