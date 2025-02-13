@@ -197,6 +197,14 @@ export class QuestionnaireComponent implements OnInit {
     let data:QuestionAnswer[] = [];
     this.mainForm.value.stages?.forEach(s => s.dataItems?.forEach(d => {
       if (d.dataItemId && d.selectedValue) {
+
+        // try to append the values to the model
+        const match = this.apiEApp?.stages.find(stage => stage.title == s.title);
+        match?.dataItems.forEach(item => {
+          if (item.dataItemId == d.dataItemId) {
+            item.selectedValue = d.selectedValue ?? '';
+          }
+        })
         data.push({
           question: d.displayLabel ?? '',
           answer: d.selectedValue
@@ -204,7 +212,6 @@ export class QuestionnaireComponent implements OnInit {
       }
     }));
     this.eAppApi.currentAnswers = data;
-    this.eAppApi.currentApp = this.apiEApp!;
     this.router.navigate(['/submission']);
   }
 }

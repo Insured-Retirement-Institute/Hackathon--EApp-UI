@@ -3,12 +3,13 @@
 
     <h1 class="text-xl font-display">{{stage.title}}</h1>
     <!-- Show the choice -->
-    @if (stage.title === 'Allocation' && !showpreBuilt && !showCustom) {
-        <button>Prebuilt</button>
-        <button>Custom</button>
+    @if (stage.title == 'Allocation' && !showCustom && !showpreBuilt) {
+        <button (click)="setPreBuilt()">Prebuilt</button>
+        <button (click)="setCustom()">Custom</button>
     }
     <!-- Funding Stage With Prebuilt -->
     @else if (stage.title === 'Allocation' && showpreBuilt) {
+        <button (click)="reset()">close</button>
         <h1>show prebuilt UI</h1>
     }
     <!-- Base workflow -->

@@ -65,6 +65,24 @@ export class StageComponent implements OnInit {
     return false;
   }
 
+  setPreBuilt(): void {
+    this.showCustom = false;
+    this.showpreBuilt = true
+    this.cd.detectChanges();
+  }
+
+  reset(): void {
+    this.showCustom = false;
+    this.showpreBuilt = false
+    this.cd.detectChanges();
+  }
+
+  setCustom(): void {
+    this.showpreBuilt = false;
+    this.showCustom = true
+    this.cd.detectChanges();
+  }
+
   // get options(): FormArray<FormGroup<DataOptionForm>> {
   //   return this.dataItems.get('dataOptions') as FormArray<FormGroup<DataOptionForm>>;
   // }

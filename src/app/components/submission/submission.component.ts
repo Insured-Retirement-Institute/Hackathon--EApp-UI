@@ -38,6 +38,7 @@ export class SubmissionComponent implements OnInit {
   loading = true;
 
   ngOnInit(): void {
+    console.log(this.eappApi.currentApp);
     this.carriers.forEach(carrier => { if (carrier.id != 1) carrier.checked = false; }); //reset list
     this.recApi.getRecommendations(this.eappApi.currentAnswers)
       .subscribe((response) => {
