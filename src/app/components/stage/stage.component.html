@@ -40,40 +40,6 @@
         </div>
         }
     </section>
-    } @else if(stage.title === 'Allocation' && showCustom) {
-    <div>
-        <p>Core Value</p>
-
-        <form (ngSubmit)="addChip1(test1, coreValuesId)" standalone>
-            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test1" @fadeIn standalone
-                [ngModelOptions]="{standalone: true}">
-        </form>
-        <ul>
-            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
-        </ul>
-    </div>
-    <div>
-        <p>Interest</p>
-
-        <form (ngSubmit)="addChip2(test2, coreValuesId)" standalone>
-            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test2" @fadeIn standalone
-                [ngModelOptions]="{standalone: true}">
-        </form>
-        <ul>
-            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
-        </ul>
-    </div>
-    <div>
-        <p>Risk/p>
-
-        <form (ngSubmit)="addChip3(test3, coreValuesId)" standalone>
-            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test3" @fadeIn standalone
-                [ngModelOptions]="{standalone: true}">
-        </form>
-        <ul>
-            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
-        </ul>
-    </div>
     }
     <!-- Base workflow -->
     @else {
@@ -109,13 +75,8 @@
                     }
 
                     @case(dataTypeEnum.longText) {
-                    <!-- <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
-                        placeholder="Please answer" @fadeIn></textarea> -->
-
-                    <input class="input" type="text" formControlName="selectedValue" placeholder="Add a tag" @fadeIn>
-                    <ul>
-                        <li>{{form.value.dataItems?.at($index)?.selectedValue}}</li>
-                    </ul>
+                    <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                        placeholder="Please answer" @fadeIn></textarea>
                     }
 
                     @case(dataTypeEnum.date) {
@@ -162,17 +123,10 @@
                 <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
                 }
 
-                <!-- @case(dataTypeEnum.longText) {
-                <p>{{item.dataItemId}}</p>
-
-                <form (ngSubmit)="addChip(test, item.dataItemId)" standalone>
-                    <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test" @fadeIn standalone
-                        [ngModelOptions]="{standalone: true}">
-                </form>
-                <ul>
-                    <li>{{form.value.dataItems?.at($index)?.selectedValue | json}}</li>
-                </ul>
-                } -->
+                @case(dataTypeEnum.longText) {
+                <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                    placeholder="Please answer" @fadeIn></textarea>
+                }
 
                 @case(dataTypeEnum.date) {
                 <div class="flex items-center gap-10">
