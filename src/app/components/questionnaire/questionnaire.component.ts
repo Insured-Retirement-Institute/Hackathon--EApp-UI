@@ -12,7 +12,8 @@ import { QuestionnaireParams } from '../../app.component';
 import { EAppApiService } from '../../services/eapp-api';
 import { MatIcon } from '@angular/material/icon';
 import { LottieComponent, AnimationOptions } from 'ngx-lottie';
-import { fadeIn } from '../../services/animations';
+import { fadeIn, listAnimation } from '../../services/animations';
+import { MatDrawerMode, MatSidenavModule } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-questionnaire',
@@ -25,10 +26,12 @@ import { fadeIn } from '../../services/animations';
     MatProgressBarModule,
     RouterModule,
     MatIcon,
-    LottieComponent
+    LottieComponent,
+    MatSidenavModule
   ],
   animations: [
-    fadeIn
+    fadeIn,
+    listAnimation
   ],
   templateUrl: './questionnaire.component.html',
   styleUrl: './questionnaire.component.scss',
@@ -46,7 +49,7 @@ export class QuestionnaireComponent implements OnInit {
     path: 'loading.json'
   }
   fb = inject(FormBuilder)
-  apiEApp: ApiEAppModel|null = null;
+  apiEApp: ApiEAppModel | null = null;
   mainForm: FormGroup<{ stages: FormArray<FormGroup<StageForm>> }> = this.fb.group({
     stages: this.fb.array<FormGroup<StageForm>>([])
   });
@@ -56,6 +59,8 @@ export class QuestionnaireComponent implements OnInit {
   showAll = false;
   questionAnswers: QuestionAnswer[] = [];
   progress = 0;
+  currentMode:MatDrawerMode = 'side';
+
   get stages(): FormArray<FormGroup<StageForm>> {
     return this.mainForm.get('stages') as FormArray<FormGroup<StageForm>>;
   }
@@ -194,7 +199,7 @@ export class QuestionnaireComponent implements OnInit {
   }
 
   submit(): void {
-    let data:QuestionAnswer[] = [];
+    let data: QuestionAnswer[] = [];
     this.mainForm.value.stages?.forEach(s => s.dataItems?.forEach(d => {
       if (d.dataItemId && d.selectedValue) {
 

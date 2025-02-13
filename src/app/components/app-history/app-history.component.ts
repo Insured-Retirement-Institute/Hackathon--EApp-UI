@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { fadeIn } from '../../services/animations';
 import { FormsModule } from '@angular/forms';
+import { fadeIn, listAnimation } from '../../services/animations';
 
 @Component({
   selector: 'app-history',
@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   animations: [
-    fadeIn
+    fadeIn,
+    listAnimation
   ],
   templateUrl: './app-history.component.html',
   styleUrl: './app-history.component.scss',
