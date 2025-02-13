@@ -11,6 +11,7 @@ import { PlaidLinkComponent } from '../plaid-link/plaid-link.component';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { hardcodedAllocations } from './consts';
 
 
 @Component({
@@ -49,6 +50,7 @@ export class StageComponent implements OnInit {
     'beneficiary information',
     'personal finances'
   ];
+  hardcodedAllocations = hardcodedAllocations;
   readonly startDate = new Date(1990, 0, 1);
 
   ngOnInit(): void {
