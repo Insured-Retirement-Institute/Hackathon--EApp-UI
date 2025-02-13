@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { FormsModule } from '@angular/forms';
 import { fadeIn, listAnimation } from '../../services/animations';
 
 @Component({
@@ -11,7 +12,8 @@ import { fadeIn, listAnimation } from '../../services/animations';
   imports: [
     MatButtonModule,
     CommonModule,
-    MatIconModule
+    MatIconModule,
+    FormsModule
   ],
   animations: [
     fadeIn,
@@ -23,6 +25,8 @@ import { fadeIn, listAnimation } from '../../services/animations';
 })
 export class AppHistoryComponent implements OnInit {
   applications: ApplicationHistoryResponse[] = []; // Holds the list of applications
+  applicationsDisplay: ApplicationHistoryResponse[] = [];
+  query = '';
 
   constructor(
     private eAppApiService: EAppApiService,
@@ -55,6 +59,7 @@ export class AppHistoryComponent implements OnInit {
             application.duration = Math.floor(Math.random() * 20).toString();
           }
         });
+        this.applicationsDisplay = this.applications;
         this.cd.markForCheck(); // Trigger change detection to update the view
       },
       (error) => {
@@ -62,6 +67,12 @@ export class AppHistoryComponent implements OnInit {
         console.log(this.applications);
       }
     );
+  }
+
+  filter() {
+    this.applicationsDisplay = this.applications.filter((application) => {
+      return application.firstName.toLowerCase().includes(this.query.toLowerCase()) || application.lastName.toLowerCase().includes(this.query.toLowerCase());
+    });
   }
 
   // Function to handle 'Continue' button click (you can customize it based on your needs)
