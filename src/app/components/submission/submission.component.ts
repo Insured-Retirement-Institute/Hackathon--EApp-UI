@@ -8,6 +8,9 @@ import { EAppApiService } from '../../services/eapp-api';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { fadeIn } from '../../services/animations';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { PurchaseConfirmationComponent } from '../purchase-confirmation/purchase-confirmation.component';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-submission',
@@ -16,6 +19,8 @@ import { fadeIn } from '../../services/animations';
     FormsModule,
     MatButtonModule,
     MatIconModule,
+    MatDialogModule,
+    RouterModule,
   ],
   animations: [
     fadeIn
@@ -25,7 +30,9 @@ import { fadeIn } from '../../services/animations';
 })
 export class SubmissionComponent implements OnInit {
   constructor(public recApi: RecommendationApiService, private pricingApi: PricingApiService, private cd: ChangeDetectorRef,
-    private eappApi: EAppApiService) { }
+    private eappApi: EAppApiService, private dialog: MatDialog,
+    private router: Router
+  ) { }
   recommendedAllocation?: PricingRequestModel;
   pricingByCarrier: Record<number, PricingResponseModel> = {};
   loading = true;
@@ -33,13 +40,13 @@ export class SubmissionComponent implements OnInit {
   ngOnInit(): void {
     this.carriers.forEach(carrier => { if (carrier.id != 1) carrier.checked = false; }); //reset list
     this.recApi.getRecommendations(this.eappApi.currentAnswers)
-    .subscribe((response) => {
-      this.recApi.currentRecommendation = response;
-      this.recommendedAllocation = response;
-      this.recommendedAllocation.allocations = this.recommendedAllocation.allocations.sort((a, b) => b.allocationPercentage - a.allocationPercentage);
-      this.loading = false;
-      this.cd.markForCheck();
-  });
+      .subscribe((response) => {
+        this.recApi.currentRecommendation = response;
+        this.recommendedAllocation = response;
+        this.recommendedAllocation.allocations = this.recommendedAllocation.allocations.sort((a, b) => b.allocationPercentage - a.allocationPercentage);
+        this.loading = false;
+        this.cd.markForCheck();
+      });
   }
 
   shop(): void {
@@ -75,12 +82,20 @@ export class SubmissionComponent implements OnInit {
     });
   }
 
+  openConfirmationModal(): void {
+    this.dialog.closeAll();
+    const dialog = this.dialog.open<PurchaseConfirmationComponent>(PurchaseConfirmationComponent);
+    dialog.afterClosed().subscribe({
+      next: () => this.router.navigate(['/app-history'])
+    })
+  }
+
   submitApp(): void {
     const form = this.eappApi.currentApp;
-    console.log(form);
+
     this.eappApi.submitApplication(form!).subscribe((response) => {
+      this.openConfirmationModal();
       this.eappApi.signApp(response.id).subscribe((response) => {
-        console.log("");
       });
     });
   }
