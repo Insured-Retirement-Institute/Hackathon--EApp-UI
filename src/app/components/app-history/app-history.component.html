@@ -1,7 +1,7 @@
 <section class="relative flex flex-col flex-grow overflow-hidden gap-y-20 py-30" @fadeIn>
   <h2 class="z-10 w-full mx-auto text-xl font-display max-w-960">Pending Applications</h2>
   <section
-    class="z-10 flex flex-col flex-grow w-full mx-auto border border-gray-700 border-solid rounded-lg shadow-sm max-w-960 bg-zinc-900">
+    class="z-10 flex flex-col flex-grow w-full mx-auto overflow-hidden border border-gray-700 border-solid rounded-lg shadow-sm max-w-960 bg-zinc-900">
     <section class="flex p-20">
       <input [(ngModel)]="query" (keydown)="filter()" type="text" placeholder="Find an application..." class="mr-auto input">
       <button mat-button>
@@ -11,7 +11,7 @@
         </span>
       </button>
     </section>
-    <section class="flex flex-col p-20 pt-0">
+    <section class="flex flex-col p-20 pt-0 overflow-auto">
       <table class="w-full -my-10 text-sm text-left border-separate rounded-lg table-auto border-spacing-y-10">
         <thead>
           <tr>
