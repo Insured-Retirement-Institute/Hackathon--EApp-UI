@@ -262,7 +262,7 @@ export interface Stage {
 
 export interface DataOption {
   label: string,
-  value: string | number,
+  value: string | number | string[] | number[],
 }
 
 export interface DataItem {

@@ -1,126 +1,196 @@
 @if(stage && form) {
 <section class="flex flex-col w-full gap-40 p-40 mx-auto max-w-840" @fadeIn>
 
+    @if(stage.title !== 'Allocation') {
     <h1 class="text-xl font-display">{{stage.title}}</h1>
+    }
     <!-- Show the choice -->
     @if (stage.title == 'Allocation' && !showCustom && !showpreBuilt) {
-        <button (click)="setPreBuilt()">Prebuilt</button>
-        <button (click)="setCustom()">Custom</button>
+    <section class="flex flex-col m-auto gap-30" @fadeIn>
+        <p class="text-lg">How would you like to allocate your funds?</p>
+        <div class="grid grid-cols-2 overflow-hidden border border-gray-700 border-solid rounded-lg">
+            <button
+                class="flex items-center justify-center text-2xl transition duration-150 border-r border-solid gap-x-10 font-display p-30 bg-zinc-900 hover:bg-blue-900 border-zinc-700"
+                (click)="setPreBuilt()">
+                <span class="material-icons text-[36px] text-indigo-500">redeem</span>
+                <span>Prebuilt</span>
+            </button>
+            <button
+                class="flex items-center justify-center text-2xl transition duration-150 gap-x-10 font-display p-30 bg-zinc-900 hover:bg-blue-900"
+                (click)="setCustom()">
+                <span class="material-icons text-[36px] text-pink-400">dashboard_customize</span>
+                <span>Personalize</span>
+            </button>
+        </div>
+    </section>
     }
     <!-- Funding Stage With Prebuilt -->
     @else if (stage.title === 'Allocation' && showpreBuilt) {
-        <button (click)="reset()">close</button>
-        <h1>show prebuilt UI</h1>
+    <button mat-button type="button" class="" (click)="reset()">
+        <span class="flex items-center justify-center w-full gap-5">
+            <mat-icon>arrow_back</mat-icon>
+            Cancel
+        </span>
+    </button>
+    <section class="flex flex-col gap-20">
+
+    </section>
+    } @else if(stage.title === 'Allocation' && showCustom) {
+    <div>
+        <p>Core Value</p>
+
+        <form (ngSubmit)="addChip1(test1, coreValuesId)" standalone>
+            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test1" @fadeIn standalone
+                [ngModelOptions]="{standalone: true}">
+        </form>
+        <ul>
+            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
+        </ul>
+    </div>
+    <div>
+        <p>Interest</p>
+
+        <form (ngSubmit)="addChip2(test2, coreValuesId)" standalone>
+            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test2" @fadeIn standalone
+                [ngModelOptions]="{standalone: true}">
+        </form>
+        <ul>
+            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
+        </ul>
+    </div>
+    <div>
+        <p>Risk/p>
+
+        <form (ngSubmit)="addChip3(test3, coreValuesId)" standalone>
+            <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test3" @fadeIn standalone
+                [ngModelOptions]="{standalone: true}">
+        </form>
+        <ul>
+            <!-- <li>{{form.value.dataItems?.find(x).selectedValue | json}}</li> -->
+        </ul>
+    </div>
     }
     <!-- Base workflow -->
     @else {
-        <form [formGroup]="form">
-            <div formArrayName="dataItems" class="flex flex-col gap-30">
-                @if (isOwnerStage(stage.title)) {
-                <div class="grid items-end grid-cols-3 gap-x-20 gap-y-30">
-                    @for (item of stage.dataItems; track $index) {
-                        @if (canShow(stage, item)) {
-                            <div [formGroupName]="$index" class="flex flex-col col-span-1 gap-10"
-                                [ngClass]="{'col-span-1': item.dataType !== dataTypeEnum.radio && item.dataType !== dataTypeEnum.checkbox, 'col-span-full': item.dataType === dataTypeEnum.radio || item.dataType === dataTypeEnum.checkbox }">
-                                <p class="" @fadeIn>{{item.displayLabel}}</p>
-                                @switch (item.dataType) {
-                                @case(dataTypeEnum.radio) {
-                                <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20 min-w-720" @fadeIn>
-                                    @for (opt of item.dataOptions; track $index) {
-                                    <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
-                                    }
-                                </mat-radio-group>
-                                }
-    
-                                @case(dataTypeEnum.select) {
-                                <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
-                                    @for (opt of item.dataOptions; track $index) {
-                                    <mat-option [value]="opt.value">{{opt.label}}</mat-option>
-                                    }
-                                </mat-select>
-                                }
-    
-                                @case(dataTypeEnum.shortText) {
-                                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
-                                    @fadeIn>
-                                }
-    
-                                @case(dataTypeEnum.longText) {
-                                <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
-                                    placeholder="Please answer" @fadeIn></textarea>
-                                }
-    
-                                @case(dataTypeEnum.date) {
-                                <div class="flex items-center gap-10">
-                                    <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
-                                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
-                                </div>
-                                }
-    
-                                @default {
-                                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
-                                    @fadeIn>
-                                }
-                                }
-                            </div>
-                    }
-                }
-                </div>
-                }
-                @else {
+    <form [formGroup]="form">
+        <div formArrayName="dataItems" class="flex flex-col gap-30">
+            @if (isOwnerStage(stage.title)) {
+            <div class="grid items-end grid-cols-3 gap-x-20 gap-y-30">
                 @for (item of stage.dataItems; track $index) {
-                    @if (canShow(stage, item)) {
-                <div [formGroupName]="$index" class="flex flex-col gap-10">
+                @if (canShow(stage, item)) {
+                <div [formGroupName]="$index" class="flex flex-col col-span-1 gap-10"
+                    [ngClass]="{'col-span-1': item.dataType !== dataTypeEnum.radio && item.dataType !== dataTypeEnum.checkbox, 'col-span-full': item.dataType === dataTypeEnum.radio || item.dataType === dataTypeEnum.checkbox }">
                     <p class="" @fadeIn>{{item.displayLabel}}</p>
                     @switch (item.dataType) {
-                        @case(dataTypeEnum.radio) {
-                        <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20" @fadeIn>
-                            @for (opt of item.dataOptions; track $index) {
-                            <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
-                            }
-                        </mat-radio-group>
+                    @case(dataTypeEnum.radio) {
+                    <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20 min-w-720" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
                         }
-    
-                        @case(dataTypeEnum.select) {
-                        <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
-                            @for (opt of item.dataOptions; track $index) {
-                            <mat-option [value]="opt.value">{{opt.label}}</mat-option>
-                            }
-                        </mat-select>
-                        }
-    
-                        @case(dataTypeEnum.shortText) {
-                        <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
-                        }
-    
-                        @case(dataTypeEnum.longText) {
-                        <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
-                            placeholder="Please answer" @fadeIn></textarea>
-                        }
-    
-                        @case(dataTypeEnum.date) {
-                        <div class="flex items-center gap-10">
-                            <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
-                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
-                        </div>
-                        }
-    
-                        @default {
-                        <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
-                        }
+                    </mat-radio-group>
                     }
-                    @if (stage.title === 'Funding' && item.displayLabel === 'What is the account number of your account?') {
-                        <app-plaid-link class="block mt-20"></app-plaid-link>
+
+                    @case(dataTypeEnum.select) {
+                    <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
+                        @for (opt of item.dataOptions; track $index) {
+                        <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                        }
+                    </mat-select>
+                    }
+
+                    @case(dataTypeEnum.shortText) {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
+                        @fadeIn>
+                    }
+
+                    @case(dataTypeEnum.longText) {
+                    <!-- <textarea class="textarea" type="text" rows="3" formControlName="selectedValue"
+                        placeholder="Please answer" @fadeIn></textarea> -->
+
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Add a tag" @fadeIn>
+                    <ul>
+                        <li>{{form.value.dataItems?.at($index)?.selectedValue}}</li>
+                    </ul>
+                    }
+
+                    @case(dataTypeEnum.date) {
+                    <div class="flex items-center gap-10">
+                        <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+                    </div>
+                    }
+
+                    @default {
+                    <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer"
+                        @fadeIn>
+                    }
                     }
                 </div>
-                }}
                 }
-    
+                }
             </div>
-    
-        </form>
+            }
+            @else {
+            @for (item of stage.dataItems; track $index) {
+            @if (canShow(stage, item)) {
+            <div [formGroupName]="$index" class="flex flex-col gap-10">
+                <p class="" @fadeIn>{{item.displayLabel}}</p>
+                @switch (item.dataType) {
+                @case(dataTypeEnum.radio) {
+                <mat-radio-group formControlName="selectedValue" class="flex items-center gap-20" @fadeIn>
+                    @for (opt of item.dataOptions; track $index) {
+                    <mat-radio-button [value]="opt.value">{{opt.value}}</mat-radio-button>
+                    }
+                </mat-radio-group>
+                }
+
+                @case(dataTypeEnum.select) {
+                <mat-select class="input" placeholder="Select an option" formControlName="selectedValue" @fadeIn>
+                    @for (opt of item.dataOptions; track $index) {
+                    <mat-option [value]="opt.value">{{opt.label}}</mat-option>
+                    }
+                </mat-select>
+                }
+
+                @case(dataTypeEnum.shortText) {
+                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                }
+
+                <!-- @case(dataTypeEnum.longText) {
+                <p>{{item.dataItemId}}</p>
+
+                <form (ngSubmit)="addChip(test, item.dataItemId)" standalone>
+                    <input class=" input" type="text" placeholder="Add a tag" [(ngModel)]="test" @fadeIn standalone
+                        [ngModelOptions]="{standalone: true}">
+                </form>
+                <ul>
+                    <li>{{form.value.dataItems?.at($index)?.selectedValue | json}}</li>
+                </ul>
+                } -->
+
+                @case(dataTypeEnum.date) {
+                <div class="flex items-center gap-10">
+                    <input class="input" [matDatepicker]="picker" placeholder="Ex: 01/01/1970">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker startView="multi-year" [startAt]="startDate"></mat-datepicker>
+                </div>
+                }
+
+                @default {
+                <input class="input" type="text" formControlName="selectedValue" placeholder="Please answer" @fadeIn>
+                }
+                }
+                @if (stage.title === 'Funding' && item.displayLabel === 'What is the account number of your account?') {
+                <app-plaid-link class="block mt-20"></app-plaid-link>
+                }
+            </div>
+            }}
+            }
+
+        </div>
+
+    </form>
     }
 </section>
 }
