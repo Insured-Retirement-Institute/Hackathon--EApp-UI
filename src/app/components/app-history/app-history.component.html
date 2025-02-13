@@ -3,7 +3,7 @@
   <section
     class="z-10 flex flex-col flex-grow w-full mx-auto border border-gray-700 border-solid rounded-lg shadow-sm max-w-960 bg-zinc-900">
     <section class="flex p-20">
-      <input type="text" placeholder="Find an application..." class="mr-auto input">
+      <input [(ngModel)]="query" (keydown)="filter()" type="text" placeholder="Find an application..." class="mr-auto input">
       <button mat-button>
         <span class="flex items-center justify-center w-full gap-5">
           <span>Filters</span>
@@ -22,7 +22,7 @@
           </tr>
         </thead>
         <tbody>
-          @for (application of applications; track $index) {
+          @for (application of applicationsDisplay; track $index) {
           <tr class="transition duration-150 group">
             <td
               class="px-20 py-10 transition duration-150 group-hover:bg-opacity-100 bg-opacity-70 rounded-l-md bg-zinc-800">
