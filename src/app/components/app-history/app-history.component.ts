@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
-import { fadeIn } from '../../services/animations';
+import { fadeIn, listAnimation } from '../../services/animations';
 
 @Component({
   selector: 'app-history',
@@ -14,7 +14,8 @@ import { fadeIn } from '../../services/animations';
     MatIconModule
   ],
   animations: [
-    fadeIn
+    fadeIn,
+    listAnimation
   ],
   templateUrl: './app-history.component.html',
   styleUrl: './app-history.component.scss',

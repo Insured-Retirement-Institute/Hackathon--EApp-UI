@@ -1,4 +1,4 @@
-<section @fadeIn
+<section
     class="flex items-start flex-grow gap-40 overflow-hidden bg-gradient-to-tr from-indigo-950 via-zinc-900 to-zinc-900 p-30">
     <section
         class="flex flex-col h-full overflow-hidden border border-solid rounded-lg shadow-xl bg-zinc-900 w-460 border-zinc-700">
@@ -42,7 +42,7 @@
                   </span>
             </button>
         </div>
-        <section class="grid grid-cols-4 gap-20" [@fadeIn]="carriers.length">
+        <section class="grid grid-cols-2 gap-20 2xl:grid-cols-4" [@listAnimation]>
             @for (item of carriers; track $index) {
             <div class="relative flex flex-col gap-20 overflow-hidden transition duration-150 border-solid rounded-lg bg-zinc-800 min-h-280 "
                 [ngClass]="{'border-2 border-solid border-blue-500': item.checked, 'border border-gray-700': !item.checked}">
@@ -59,12 +59,12 @@
                 </div>
                 @if (pricingByCarrier[item.id]) {
                 <div @fadeIn class="flex flex-col gap-20 p-10 mt-auto">
-                    <div class="flex gap-20 p-10 bg-blue-800 rounded-md">
+                    <div class="flex gap-20 p-10 bg-blue-800 rounded-md" [@listAnimation]>
                 
                         @for (funds of pricingByCarrier[item.id].funds; track $index) {
                         <div class="flex flex-col flex-grow px-20" [ngClass]="{'border-r border-solid border-blue-900': $index === 0}">
                             <p class="text-xs text-gray-300">{{funds.fundName.includes('CAP') ? "Cap Rate" : "Par Rate"}}:</p>
-                            <p class="text-2xl font-display">{{funds.rate | number:'1.0'}}%</p>
+                            <p class="text-2xl font-display">{{funds.rate | number:'1.1-2'}}%</p>
                         </div>
                         }
                 
@@ -81,8 +81,6 @@
                         <div class="h-40 rounded-full bg-zinc-700"> </div>
                     </div>
                 }
-
-
             </div>
             }
         </section>
